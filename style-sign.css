@@ -71,8 +71,70 @@ background: linear-gradient(180deg, #FF7337 0%, #9C382E 100%, #9C382E 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
-text-fill-color: transparent;
+/* text-fill-color: transparent; */
 }
 .formsignin{
     margin-top: 30%;
 }
+.form-controll {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  .form-controll label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  .form-controll input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+  }
+  .form-controll input:focus {
+    outline: 0;
+    border-color: #777;
+  }
+  .form-controll.success input {
+    border-color: #2ecc71;
+  }
+  .form-controll.error input {
+    border-color: #e74c3c;
+  }
+  .form-controll i {
+    visibility: hidden;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+  }
+  .form-controll.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+  }
+  .form-controll.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+  }
+  .form-controll small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
+  .form-controll.error small {
+    visibility: visible;
+  }
+  .form-controll samp {
+    color: #2ecc71;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
+  .form-controll.success samp {
+    visibility: visible;
+  }
