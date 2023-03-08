@@ -25,30 +25,7 @@
     <div class="">
     </div>
 </nav>
-<?php
-require('connect.php');
 
-$user_email = $_SESSION["user_email"];
-$sql = "SELECT first_name, last_name, phone_number, email, password FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->execute([$user_email]);
-
-
-if ($stmt->rowCount() > 0) {
-  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  $first_name = $row["first_name"];
-  $last_name = $row["last_name"];
-  $phone_number = $row["phone_number"];
-  $email = $row["email"];
-  $password = $row["password"];
-
-  // Replace HB with the user's initials
-  $initials = strtoupper(substr($first_name, 0, 1) . substr($last_name, 0, 1));
-} else {
-  echo "User not found.";
-}
-
-?>
   <!-- Display user's information using HTML code -->
   <div class="profilinfo d-flex gap-5 " style="height: 320px; padding: 0%; margin-top:89px;">
     <div class="rounded-circle bg-dark d-flex justify-content-center align-items-center" style="width: 150px; height: 150px;margin-top:89px;margin-left:89px;">
@@ -109,20 +86,19 @@ if ($stmt->rowCount() > 0) {
   </div>
 </div>
 <div class="addcard d-flex justify-content-center align-items-center"><button class="btn btn-warning mt-3 text-white" data-bs-target="#addModalL" data-bs-toggle="modal">add a new card <iconify-icon icon="material-symbols:add-circle" style="color: white;"></iconify-icon></button></div>
-<div class="allcards d-flex flex-wrap gap-3">
-</div>
-<div class="card  text-white w-25">
-    <img src="imgs/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@ 1.png" class="card-img" alt="Image Background">
-    <div class="card-img-overlay">
-      <img src="imgs/wavesOpacity 1 2.png" class="card-img" alt="Image Overlay">
-      <div class="card-body">
-        <h5 class="card-title">Text on Image Overlay</h5>
-        <p class="card-text">Some example text to go on the image overlay.</p>
-        <button>RESERVE</button>
-      </div>
+<div class=" d-flex gap-3">
+  
+<div class="card">
+  <div class="wow" style="position: relative;">
+    <img src="imgs/Group 48.png" alt="Background Image" />
+    <img src="imgs/opacitywaves.png" alt="Overlay Image" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 21%); z-index: 0;" />
+    <div class="content text-center" style="position: absolute; top: 65%; left: 0%;z-index: 1;">
+      <h5 class="card-title">Text on Image Overlay</h5>
+      <p class="card-text">Some example text to go on the image overlay.</p>
+      <button class="btn btn-warning">RESERVE</button>
     </div>
   </div>
-  
-  </div>
+</div>
+</div>
 </body>
 </html>

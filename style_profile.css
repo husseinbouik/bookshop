@@ -42,4 +42,58 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  .card-img-overlay {
+    position: relative;
+  }
   
+  .card-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    color: white;
+  }
+  
+  .card-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0062cc;
+  }
+.content{
+  margin-top: 100%;
+}
+
+.card {
+  white-space: nowrap;
+}
+
+.wow {
+  display: inline-block;
+  width: 50%;
+}
+
+.content {
+  top: 50%;
+  transform: translate(0, -50%);
+}

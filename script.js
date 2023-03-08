@@ -9,7 +9,6 @@ const birthdate = document.getElementById('birthdate');
 const type = document.getElementById('type');
 const password = document.getElementById('password');
 const confirmpassword = document.getElementById('confirmpassword');
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInput();
