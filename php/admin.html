@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Roboto&family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0e22389e8c.js" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+    <link href="../css/style-homepage.css"  rel="stylesheet" >
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-transparent fixed-top">
+        <div class="d-flex">
+            <div>
+        <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
+
+        </div>
+        <div class="mt-5">
+        <span class="brown">OasisBooks</span>
+
+        </div></div>
+    </a>
+    <div class="">
+    </div>
+</nav>
+<div class="homeimg">
+        <h1 class="brown">"Welcome to our online borrowing books website"</h1>
+        <div class="searchinput ">
+            <div class="search mx-auto">
+                <i class="fa fa-search"></i>
+                <input type="text" class="form-control" placeholder="Have a question? Ask Now">
+                <button class="btn btn-secondary">Search</button>
+              </div>
+        </div>
+
+            </div> 
+            <div class="addcard d-flex justify-content-center align-items-center"><button class="btn btn-warning mt-3 text-white" data-bs-target="#addModalL" data-bs-toggle="modal">add a new card <iconify-icon icon="material-symbols:add-circle" style="color: white;"></iconify-icon></button></div>
+<!-- Modal add -->
+<div class="modal fade" id="addModalL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content h-25">
+      <div class="modal-body bgmodal">
+        <form action="insert.php" method="POST" id="myForm" enctype="multipart/form-data">
+          <h2>Ajouter l'anonce</h2>
+          <div class="container d-flex gap-2">
+          <?php for ($i = 0; $i < 5; $i++) { ?>
+    <div class="secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
+      <img id="icon1<?php echo $i; ?>" src="cloud-upload.svg" alt="Upload Icon" />
+      <input type="file" name="images[]" id="fileUpload<?php echo $i; ?>" />
+      <img class="previewImage" id="previewImage1<?php echo $i; ?>" src="#" alt="Image Preview" />
+    </div>
+  <?php }  ?>
+</div>
+
+
+          <div class="d-flex flex-wrap gap-3">
+            <div class="mb-3">
+              <label for="exampleFormControlInput0" class="form-label">Titre</label>
+              <input type="text" name="title" class="form-control" id="titleAdd" placeholder="Titre" />
+              <p id="titleError">Veuillez saisir un titre valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput0" class="form-label">category</label>
+              <input type="text" name="category" class="form-control" id="titleAdd" placeholder="Titre" />
+              <p id="titleError">Veuillez saisir un category valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Montant</label>
+              <input type="number" min="0" name="price" class="form-control" id="priceAdd" placeholder="Montant" />
+              <p id="priceError">Veuillez saisir un montant valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="countryAdd" class="form-label">Country</label>
+              <input type="text" name="country" class="form-control" id="countryAdd" placeholder="Country" />
+              <p id="countryError">Veuillez saisir un pays valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="cityAdd" class="form-label">City</label>
+              <input type="text" name="city" class="form-control" id="cityAdd" placeholder="City" />
+              <p id="cityError">Veuillez saisir une ville valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="areaAdd" class="form-label">Area</label>
+              <input type="text" name="area" class="form-control" id="areaAdd" placeholder="Area" />
+              <p id="areaError">Veuillez saisir une zone valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Adresse</label>
+              <input type="text" name="address" class="form-control" id="addressAdd" placeholder="Adresse" />
+              <p id="addressError">Veuillez saisir une adresse valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="zipCodeAdd" class="form-label">Zip Code</label>
+              <input type="text" name="zipCode" class="form-control" id="zipCodeAdd" placeholder="Zip Code" />
+              <p id="zipCodeError">Veuillez saisir un code postal valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">surface</label>
+              <input type="number" min="0" name="surface" class="form-control" id="superficieAdd" placeholder="Superficie" />
+              <p id="superficieError">Veuillez saisir une superficie valide.</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Type</label>
+              <select class="form-select" name="type" id="typeAdd">
+                <option selected disabled>Choisir</option>
+                <option value="sale">sale</option>
+                <option value="lease">lease</option>
+              </select>
+              <p id="typeError">Veuillez choisir un type.</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" name="description" id="exampleFormControlTextarea2" rows="3"></textarea>
+          </div>
+          <div class="justify-content-center d-flex">
+            <button name="addBtn" value="addBtn" type="submit" class="btn buttons" id="addBtn">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+            <div class="d-flex gap-3">
+                <div class="wow" style="position: relative;margin:10px ;">
+                    <img class="cardimg" src="../imgs/Group 48.png" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
+                    <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
+                    <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
+                        <h5 class="card-title">Call me by your name</h5>
+                        <p class="card-text">Lucas ourlando</p>
+                        <button class="btn btn-warning">RESERVE</button>
+                      </div>
+                  </div>
+            </div>
+</body>
+</html>

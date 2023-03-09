@@ -1,0 +1,69 @@
+h1.brown {
+  font-family: "Rozha One";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 88px;
+  line-height: 125px;
+  width: 1010.15px;
+
+  color: #9c382e;
+
+  text-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
+}
+.homeimg {
+  background-image: url(/imgs/unsplash_zvKx6ixUhWQ.png);
+  background-size: cover;
+  height: 100vh;
+}
+/* img{
+      width: 100%;
+  } */
+span.brown {
+  font-family: "Rozha One";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 33px;
+  /* identical to box height */
+
+  color: #9c382e;
+}
+.brown {
+  color: #9c382e;
+}
+
+.search {
+        width: 37%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+}
+.search input {
+  height: 60px;
+  text-indent: 25px;
+  border: 2px solid #d6d4d4;
+}
+.search input:focus {
+  box-shadow: none;
+  border: 2px solid #9c382e;
+}
+.search .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+}
+.search button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 50px;
+  width: 110px;
+  background: #9c382e;
+}
+
+.cardimg{
+  border-radius: 20px;
+}
+.reservebutton{
+  width: 10px;
+  height: 10px;
+}
