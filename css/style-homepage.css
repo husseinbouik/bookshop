@@ -14,6 +14,7 @@ h1.brown {
   background-image: url(/imgs/unsplash_zvKx6ixUhWQ.png);
   background-size: cover;
   height: 100vh;
+  padding-top: 67px;
 }
 /* img{
       width: 100%;

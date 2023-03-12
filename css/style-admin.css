@@ -1,0 +1,177 @@
+h1.brown {
+    font-family: "Rozha One";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 88px;
+    line-height: 125px;
+    width: 1010.15px;
+  
+    color: #9c382e;
+  
+    text-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
+  }
+  .homeimg {
+  background-image: url(/imgs/unsplash_zvKx6ixUhWQ.png);
+  background-size: cover;
+  height: 100vh;
+  padding-top: 67px;
+}
+  span.brown {
+  font-family: "Rozha One";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 33px;
+  /* identical to box height */
+
+  color: #9c382e;
+}
+.brown {
+  color: #9c382e;
+}
+.search {
+        width: 37%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+}
+.search input {
+  height: 60px;
+  text-indent: 25px;
+  border: 2px solid #d6d4d4;
+}
+.search input:focus {
+  box-shadow: none;
+  border: 2px solid #9c382e;
+}
+.search .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+}
+.search button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 50px;
+  width: 110px;
+  background: #9c382e;
+}
+
+.cardimg{
+  border-radius: 20px;
+}
+.reservebutton{
+  width: 10px;
+  height: 10px;
+}
+.btnreservation{
+background-color: #FF7337;
+color: aliceblue;
+}
+.btnborrowing{
+background-color: #FFD260;
+color: aliceblue;
+}
+
+.btnreservation:hover{
+    background-color:#FFD260 ;
+    color: aliceblue;
+    }
+    .btnborrowing:hover{
+    background-color:#9c382e ;
+    color: aliceblue;
+    }
+    .form-controll {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  .form-controll label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  .form-controll input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+  }
+  .form-controll input:focus {
+    outline: 0;
+    border-color: #777;
+  }
+  .form-controll.success input {
+    border-color: #2ecc71;
+  }
+  .form-controll.error input {
+    border-color: #e74c3c;
+  }
+  .form-controll i {
+    visibility: hidden;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+  }
+  .form-controll.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+  }
+  .form-controll.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+  }
+  .form-controll small {
+    color: #e74c3c;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
+  .form-controll.error small {
+    visibility: visible;
+  }
+  .file-input {
+    width: 100%;
+    background-color: aliceblue;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .file-input input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+  
+  .previewImage,.icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .previewImages {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .previewImage + img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  

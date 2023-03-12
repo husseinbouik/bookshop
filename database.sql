@@ -34,7 +34,6 @@ CREATE TABLE Collection(
    PRIMARY KEY(Collection_Code),
    FOREIGN KEY(Type_Code) REFERENCES Types(Type_Code)
 );
-
 CREATE TABLE Reservation(
    Reservation_Code INT,
    Reservation_Date DATE,

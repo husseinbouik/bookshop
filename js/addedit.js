@@ -10,6 +10,42 @@ const birthdate = document.getElementById('birthdate');
 const type = document.getElementById('type');
 const password = document.getElementById('password');
 const confirmpassword = document.getElementById('confirmpassword');
+const primaryUpload = document.getElementById(`fileUpload`);
+const primaryPreview1 = document.getElementById(`previewImage1`);
+const primaryIcon1 = document.getElementById(`icon1`);
+
+primaryUpload.addEventListener("change", function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.addEventListener("load", function() {
+            primaryPreview1.style.display = "block";
+            primaryPreview1.setAttribute("src", this.result);
+            primaryIcon1.style.display = "none";
+        });
+        reader.readAsDataURL(file);
+    } else {
+        primaryPreview1.style.display = "none";
+        primaryPreview1.setAttribute("src", "#");
+        primaryIcon1.style.display = "block";
+    }
+});
+function showTypeFields() {
+  var type = document.getElementById("type").value;
+  var pagesField = document.getElementById("pagesField");
+  var durationField = document.getElementById("durationField");
+
+  // hide all fields by default
+  pagesField.style.display = "none";
+  durationField.style.display = "none";
+
+  // show fields based on selected type
+  if (type == "Book") {
+    pagesField.style.display = "block";
+  } else if (type == "DVD") {
+    durationField.style.display = "block";
+  }
+}
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInput();
@@ -141,3 +177,8 @@ function setSuccess(input) {
   formControl.classList.add('success');
   small.innerText = '';
 }
+
+
+
+
+

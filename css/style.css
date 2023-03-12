@@ -1,6 +1,10 @@
 .btnorange{
     background-color: #FF8049;
     color: #9C382E;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 150px;
 }
 .btnorange:hover{
     background-color: #9C382E;
@@ -28,10 +32,7 @@ span.brown{
     font-size: 23px;
     line-height: 33px;
     /* identical to box height */
-    
-    
     color: #9C382E;
-
 }
 .orange {
   color: #ff8049;
@@ -39,7 +40,7 @@ span.brown{
 .brown {
     color: #9C382E;
   }
-button.sign-in,button.sign-up{
+a.sign-in,a.sign-up{
     
 font-family: 'Roboto';
 font-style: normal;
