@@ -40,9 +40,9 @@ function showTypeFields() {
   durationField.style.display = "none";
 
   // show fields based on selected type
-  if (type == "Book") {
+  if (type == "Book" || type == "Novel" || type == "Research paper/thesis" || type == "Magazine") {
     pagesField.style.display = "block";
-  } else if (type == "DVD") {
+  } else if (type == "DVD" ) {
     durationField.style.display = "block";
   }
 }
