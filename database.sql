@@ -15,14 +15,14 @@ CREATE TABLE Members(
 );
 
 CREATE TABLE Types(
-   Type_Code INT,
+   Type_Code INT AUTO_INCREMENT,
    Type_Name VARCHAR(50),
-   Type_Type VARCHAR(50),
+   pages_or_duration VARCHAR(50),
    PRIMARY KEY(Type_Code)
 );
 
 CREATE TABLE Collection(
-   Collection_Code INT,
+   Collection_Code INT AUTO_INCREMENT ,
    Title VARCHAR(50),
    Author_Name VARCHAR(100),
    Cover_Image VARCHAR(100),
@@ -35,7 +35,7 @@ CREATE TABLE Collection(
    FOREIGN KEY(Type_Code) REFERENCES Types(Type_Code)
 );
 CREATE TABLE Reservation(
-   Reservation_Code INT,
+   Reservation_Code INT AUTO_INCREMENT,
    Reservation_Date DATE,
    Reservation_Expiration_Date DATE,
    Collection_Code INT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Reservation(
 );
 
 CREATE TABLE Borrowings(
-   Borrowing_Code INT,
+   Borrowing_Code INT AUTO_INCREMENT,
    Borrowing_Date DATE,
    Borrowing_Return_Date DATE,
    Collection_Code INT NOT NULL,

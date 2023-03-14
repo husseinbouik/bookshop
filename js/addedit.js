@@ -1,168 +1,251 @@
-const form = document.getElementById('form');
-const firstname = document.getElementById('firstname');
-const lastname = document.getElementById('lastname');
-const nickname = document.getElementById('nickname');
-const email = document.getElementById('email');
-const phonenumber = document.getElementById('phonenumber');
-const address = document.getElementById('address');
-const cin = document.getElementById('cin');
-const birthdate = document.getElementById('birthdate');
-const type = document.getElementById('type');
-const password = document.getElementById('password');
-const confirmpassword = document.getElementById('confirmpassword');
-const primaryUpload = document.getElementById(`fileUpload`);
-const primaryPreview1 = document.getElementById(`previewImage1`);
-const primaryIcon1 = document.getElementById(`icon1`);
+const addform = document.getElementById('addform');
+const addfileUpload = document.getElementById('addfileUpload');
+const addtitle = document.getElementById('addtitle');
+const addauthorname = document.getElementById('addauthorname');
+const addtype = document.getElementById('addtype');
+const addpages = document.getElementById('addpages');
+const addduration = document.getElementById('addduration');
+const addeditiondate = document.getElementById('addeditiondate');
+const addbuydate = document.getElementById('addbuydate');
+const addstate = document.getElementById('addstate');
+const addprimaryUpload = document.getElementById(`addfileUpload`);
+const addprimaryPreview1 = document.getElementById(`addpreviewImage1`);
+const addprimaryIcon1 = document.getElementById(`addicon1`);
+const editform = document.getElementById('editform');
+const editfileUpload = document.getElementById('editfileUpload');
+const edittitle = document.getElementById('edittitle');
+const editauthorname = document.getElementById('editauthorname');
+const edittype = document.getElementById('edittype');
+const editpages = document.getElementById('editpages');
+const editduration = document.getElementById('editduration');
+const editeditiondate = document.getElementById('editeditiondate');
+const editbuydate = document.getElementById('editbuydate');
+const editstate = document.getElementById('editstate');
+const editprimaryUpload = document.getElementById(`editfileUpload`);
+const editprimaryPreview1 = document.getElementById(`editpreviewImage1`);
+const editprimaryIcon1 = document.getElementById(`editicon1`);
 
-primaryUpload.addEventListener("change", function() {
+addprimaryUpload.addEventListener("change", function() {
+  const file = this.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.addEventListener("load", function() {
+          addprimaryPreview1.style.display = "block";
+          addprimaryPreview1.setAttribute("src", this.result);
+          addprimaryIcon1.style.display = "none";
+      });
+      reader.readAsDataURL(file);
+  } else {
+      addprimaryPreview1.style.display = "none";
+      addprimaryPreview1.setAttribute("src", "#");
+      addprimaryIcon1.style.display = "block";
+  }
+});
+function showTypeFields() {
+var addtype = document.getElementById("addtype").value;
+var addpagesField = document.getElementById("addpagesField");
+var adddurationField = document.getElementById("adddurationField");
+
+// hide all fields by default
+addpagesField.style.display = "none";
+adddurationField.style.display = "none";
+
+// show fields based on selected addtype
+if (addtype == "Book" || addtype == "Novel" || addtype == "Research paper/thesis" || addtype == "Magazine") {
+  addpagesField.style.display = "block";
+} else if (addtype == "DVD" ) {
+  adddurationField.style.display = "block";
+}
+}
+editform.addEventListener("submit", (e) => {
+  e.preventDefault();
+  validateInput1();
+}); 
+addform.addEventListener("submit", (e) => {
+e.preventDefault();
+validateInput();
+});  
+function validateInput() {
+const addfileUploadValue = addfileUpload.value.trim();
+const addtitleValue = addtitle.value.trim();
+const addauthornameValue = addauthorname.value.trim();
+const addtypeValue = addtype.value.trim();
+const addpagesValue = addpages.value.trim();
+const adddurationValue = addduration.value.trim(); 
+const now = new Date();
+const addstateValue = addstate.value;
+let arr = [];
+if(addfileUploadValue === '') {
+  setError(addfileUpload, 'empty input !');
+}else {
+  setSuccess(addfileUpload);
+  arr.push(true);
+}
+if(addtitleValue === '') {
+  setError(addtitle, 'Title cannot be blank');
+} else {
+  setSuccess(addtitle);
+  arr.push(true);
+}
+if(addauthornameValue === '') {
+  setError(addauthorname, 'addauthorname cannot be blank');
+}else {
+  setSuccess(addauthorname);
+  arr.push(true);
+}
+if (addtypeValue == "Book" || addtypeValue == "Novel" || addtypeValue == "Research paper/thesis" || addtypeValue == "Magazine") {
+  if(addpagesValue === '') {
+    setError(addpages, 'Pages  cannot be blank');
+  } else {
+    setSuccess(addpages);
+    arr.push(true);
+  }} else if (addtypeValue == "DVD" ) {
+    if(adddurationValue === '') {
+      setError(addduration, 'Address cannot be blank');
+    } else {
+      setSuccess(addduration);
+      arr.push(true);
+    }
+}
+if (addeditiondate.value === '' || new Date(addeditiondate.value) >= now) {
+setError(addeditiondate, 'Please enter a valid past date');
+} else {
+setSuccess(addeditiondate);
+arr.push(true);
+}
+
+if (addbuydate.value === '' || new Date(addbuydate.value) >= now) {
+setError(addbuydate, 'Please enter a valid past date');
+} else {
+setSuccess(addbuydate);
+arr.push(true);
+}
+
+if(addtypeValue === 'Type') {
+  setError(addtype, 'Please select your addtype');
+} else {
+  setSuccess(addtype);
+  arr.push(true);
+}
+if(addstateValue === 'Choose') {
+  setError(addstate, 'Please choose a addstate');
+} else {
+  setSuccess(addstate);
+  arr.push(true);
+}
+if(arr.length === 8) {
+  // all fields are filled
+  // submit the form or redirect to another page
+  addform.submit(); // submit the form
+}
+}
+editprimaryUpload.addEventListener("change", function() {
     const file = this.files[0];
     if (file) {
         const reader = new FileReader();
         reader.addEventListener("load", function() {
-            primaryPreview1.style.display = "block";
-            primaryPreview1.setAttribute("src", this.result);
-            primaryIcon1.style.display = "none";
+            editprimaryPreview1.style.display = "block";
+            editprimaryPreview1.setAttribute("src", this.result);
+            editprimaryIcon1.style.display = "none";
         });
         reader.readAsDataURL(file);
     } else {
-        primaryPreview1.style.display = "none";
-        primaryPreview1.setAttribute("src", "#");
-        primaryIcon1.style.display = "block";
+        editprimaryPreview1.style.display = "none";
+        editprimaryPreview1.setAttribute("src", "#");
+        editprimaryIcon1.style.display = "block";
     }
 });
-function showTypeFields() {
-  var type = document.getElementById("type").value;
-  var pagesField = document.getElementById("pagesField");
-  var durationField = document.getElementById("durationField");
+function showTypeFields1() {
+  var edittype = document.getElementById("edittype").value;
+  var editpagesField = document.getElementById("editpagesField");
+  var editdurationField = document.getElementById("editdurationField");
 
   // hide all fields by default
-  pagesField.style.display = "none";
-  durationField.style.display = "none";
+  editpagesField.style.display = "none";
+  editdurationField.style.display = "none";
 
-  // show fields based on selected type
-  if (type == "Book" || type == "Novel" || type == "Research paper/thesis" || type == "Magazine") {
-    pagesField.style.display = "block";
-  } else if (type == "DVD" ) {
-    durationField.style.display = "block";
+  // show fields based on selected edittype
+  if (edittype == "Book" || edittype == "Novel" || edittype == "Research paper/thesis" || edittype == "Magazine") {
+    editpagesField.style.display = "block";
+  } else if (edittype == "DVD" ) {
+    editdurationField.style.display = "block";
   }
 }
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  validateInput();
-});  
-function validateInput() {
-  const firstnameValue = firstname.value.trim();
-  const lastnameValue = lastname.value.trim();
-  const nicknameValue = nickname.value.trim();
-  const emailValue = email.value.trim();
-  const phonenumberValue = phonenumber.value.trim();
-  const cinValue = cin.value.trim(); 
-  const addressValue = address.value.trim(); 
-  const birthdateValue = new Date(birthdate.value);
-  const typeValue = type.value;
-  const passwordValue = password.value.trim();
-  const confirmpasswordValue = confirmpassword.value.trim();
+ 
+function validateInput1() {
+  const editfileUploadValue = editfileUpload.value.trim();
+  const edittitleValue = edittitle.value.trim();
+  const editauthornameValue = editauthorname.value.trim();
+  const edittypeValue = edittype.value.trim();
+  const editpagesValue = editpages.value.trim();
+  const editdurationValue = editduration.value.trim(); 
+  const now = new Date();
+  const editstateValue = editstate.value;
   let arr = [];
-  if(firstnameValue === '') {
-    setError(firstname, 'First name cannot be blank');
-  }else if(!isValidName(firstnameValue)) {
-    setError(firstname, 'First name is not valid');
+  if(editfileUploadValue === '') {
+    setError(editfileUpload, 'empty input !');
   }else {
-    setSuccess(firstname);
+    setSuccess(editfileUpload);
     arr.push(true);
   }
-  if(lastnameValue === '') {
-    setError(lastname, 'Last name cannot be blank');
-  }else if(!isValidName(lastnameValue)) {
-    setError(lastname, 'Last name is not valid');
+  if(edittitleValue === '') {
+    setError(edittitle, 'Title cannot be blank');
   } else {
-    setSuccess(lastname);
+    setSuccess(edittitle);
     arr.push(true);
   }
-  if(nicknameValue === '') {
-    setError(nickname, 'Nickname cannot be blank');
-  } else if(!isValidNickname(nicknameValue)) {
-    setError(nickname, 'Nickname is not valid');
+  if(editauthornameValue === '') {
+    setError(editauthorname, 'editauthorname cannot be blank');
   }else {
-    setSuccess(nickname);
+    setSuccess(editauthorname);
     arr.push(true);
   }
-  if(emailValue === '') {
-    setError(email, 'Email cannot be blank');
-  } else if(!isValidEmail(emailValue)) {
-    setError(email, 'Email is not valid');
+  if (edittypeValue == "Book" || edittypeValue == "Novel" || edittypeValue == "Research paper/thesis" || edittypeValue == "Magazine") {
+    if(editpagesValue === '') {
+      setError(editpages, 'Pages  cannot be blank');
+    } else {
+      setSuccess(editpages);
+      arr.push(true);
+    }} else if (edittypeValue == "DVD" ) {
+      if(editdurationValue === '') {
+        setError(editduration, 'Address cannot be blank');
+      } else {
+        setSuccess(editduration);
+        arr.push(true);
+      }
+  }
+if (editeditiondate.value === '' || new Date(editeditiondate.value) >= now) {
+  setError(editeditiondate, 'Please enter a valid past date');
+} else {
+  setSuccess(editeditiondate);
+  arr.push(true);
+}
+
+if (editbuydate.value === '' || new Date(editbuydate.value) >= now) {
+  setError(editbuydate, 'Please enter a valid past date');
+} else {
+  setSuccess(editbuydate);
+  arr.push(true);
+}
+
+  if(edittypeValue === 'Type') {
+    setError(edittype, 'Please select your edittype');
   } else {
-    setSuccess(email);
+    setSuccess(edittype);
     arr.push(true);
   }
-  if(phonenumberValue === '') {
-    setError(phonenumber, 'Phone number cannot be blank');
-  } else if(!isValidPhone(phonenumberValue)) {
-    setError(phonenumber, 'Phone number is not valid');
+  if(editstateValue === 'Choose') {
+    setError(editstate, 'Please choose a editstate');
   } else {
-    setSuccess(phonenumber);
+    setSuccess(editstate);
     arr.push(true);
   }
-  if(addressValue === '') {
-    setError(address, 'Address cannot be blank');
-  } else {
-    setSuccess(address);
-    arr.push(true);
-  }
-  if(cinValue === '') {
-    setError(cin, 'CIN cannot be blank');
-  } else {
-    setSuccess(cin);
-    arr.push(true);
-  }
-  if(birthdate.value === '' || birthdateValue > new Date() || birthdateValue > new Date().setFullYear(new Date().getFullYear() - 6)) {
-    setError(birthdate, 'Date of birth is invalid');
-  } else {
-    setSuccess(birthdate);
-    arr.push(true)
-  }
-  if(typeValue === 'Type') {
-    setError(type, 'Please select your type');
-  } else {
-    setSuccess(type);
-    arr.push(true);
-  }
-  if(passwordValue === '') {
-    setError(password, 'Password cannot be blank');
-  } else if(passwordValue.length < 8) {
-    setError(password, 'Password must be at least 8 characters');
-  } else {
-    setSuccess(password);
-    arr.push(true);
-  }
-  if(confirmpasswordValue === '') {
-    setError(confirmpassword, 'Confirm password cannot be blank');
-  } else if(passwordValue !== confirmpasswordValue) {
-    setError(confirmpassword, 'Passwords do not match');
-  } else {
-    setSuccess(confirmpassword);
-    arr.push(true);
-  }
-  if(arr.length === 11) {
+  if(arr.length === 8) {
     // all fields are filled
     // submit the form or redirect to another page
-    window.location.href = 'index.html'; // redirect to success page
-    // form.submit(); // submit the form
+    editform.submit(); // submit the form
   }
 }
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-function isValidPhone(phone){
-  return /^((\+212)?[ -])?(06|05|07)(\d{1})[ -]?(\d{3})[ -]?(\d{4})+$/.test(phone)
-}
-function isValidName(name){
-  return /^[A-Za-z]+([- ][A-Za-z]+)*$/.test(name)
-}
-function isValidNickname(nickname){
-  return /^[a-zA-Z0-9_]+[a-zA-Z0-9_.-]*$/.test(nickname)
-}
-
 function setError(input, message) {
   const formControl = input.parentElement;
   const small = formControl.querySelector('small');
@@ -177,8 +260,5 @@ function setSuccess(input) {
   formControl.classList.add('success');
   small.innerText = '';
 }
-
-
-
 
 
