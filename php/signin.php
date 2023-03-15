@@ -16,7 +16,7 @@
     <div class="signin d-flex">
                 <div class="signin-form">
           <h3>Log In</h3>
-          <form class="formsignin" id="form" action="" enctype="">
+          <form action="registration.php"  id="form" class="form" enctype="multipart/form-data">
     <div class="form-controll">
       <label for="exampleFormControlInput1" class="form-label">Nickname</label>
       <input type="text" name="nickname" class="form-control" id="nickname" >

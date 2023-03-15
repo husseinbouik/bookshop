@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-transparent fixed-top">
             <div class="d-flex">
-                <a href="../php/index.html">
+                <a href="../php/landing-page.html">
                 <div>
             <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
             </div>

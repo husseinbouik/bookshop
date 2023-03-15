@@ -110,7 +110,7 @@ function validateInput() {
   if(arr.length === 11) {
     // all fields are filled
     // submit the form or redirect to another page
-    window.location.href = 'index.html'; // redirect to success page
+    window.location.href = 'registration.php'; // redirect to success page
     // form.submit(); // submit the form
   }
 }
