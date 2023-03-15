@@ -19,7 +19,7 @@
 
         <div class="bgright ">
           <div class="logo">
-            <a href="../php/index.html">
+            <a href="landing-page.php">
               <div class="logobg d-flex justify-content-center align-items-center">
                 <img class="imglogo" src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="OasisBooks Logo" width="100" height="100">
               </div>
@@ -136,7 +136,7 @@
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
   <label class="form-check-label" for="flexCheckDefault">
-    <a>you already have an account ? <span> sign in</span></a>
+    <a>you already have an account ? <a href='signin.php'> sign in</a></a>
   </label>
 </div>
 <button type="submit" class="register btn"   class=""  value="submit" name="signup">Register</button>

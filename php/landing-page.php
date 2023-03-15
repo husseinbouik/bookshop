@@ -25,15 +25,15 @@
             <span class="brown">OasisBooks</span>
             </div></div>
         <div class="">
-            <a href="../php/signup.html" class="btn sign-up">Sign Up</a>
-            <a href="../php/signin.html" class="btn sign-in">Sign In</a>
+            <a href="../php/signup.php" class="btn sign-up">Sign Up</a>
+            <a href="../php/signin.php" class="btn sign-in">Sign In</a>
           </div>
     </nav>
     <div class="position-relative">
         <img src="../imgs/unsplash_ZEzO1kaaYrY.png" alt="your-image-description" class="img-fluid">
         <div class="slogan position-absolute top-50 start-50 translate-middle text-start">
             <h1 class="brown">"Find your literary oasis at<span class="orange"> OasisBooks</span> - borrow, read, and explore!"</h1>
-            <button class="btnorange" onclick="location.href='signup.html';">Borrow Books</button>
+            <button class="btnorange" onclick="location.href='signup.php';">Borrow Books</button>
         </div>
         
     </div>

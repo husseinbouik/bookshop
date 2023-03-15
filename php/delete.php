@@ -12,9 +12,9 @@ if (isset($_POST['delete'])) {
 
   // Call the deleteCollection method with the collectionCode
   $collection->deleteCollection($collectionCode);
-
-  // Redirect back to the page displaying the collections
-//   header("Location: admin.php");
+  
+  // Redirect to the collection home page
+header("Location:admin.php");
   exit;
 }
 ?>

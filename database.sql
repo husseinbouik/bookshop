@@ -14,6 +14,7 @@ CREATE TABLE Members(
    PRIMARY KEY(Nickname)
 );
 
+
 CREATE TABLE Types(
    Type_Code INT AUTO_INCREMENT,
    Type_Name VARCHAR(50),

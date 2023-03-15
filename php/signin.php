@@ -39,13 +39,13 @@
 Remember me 
   </label>
 </div>
-<a>you don't have an account ? <span> sign up<br></span></a>
+<a>you don't have an account ? <a href='signup.php'> sign up<br></a></a>
 <button type="submit" class="register " name="signup">Connexion</button>
           </form>
       </div>
         <div class="bgleft">
           <div class="logo">
-            <a href="../php/index.html">
+            <a href="landing-page.php">
               <div class="logobg d-flex justify-content-center align-items-center">
                 <img class="imglogo" src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="OasisBooks Logo" width="100" height="100">
               </div>

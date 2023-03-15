@@ -8,11 +8,7 @@ const addduration = document.getElementById('addduration');
 const addeditiondate = document.getElementById('addeditiondate');
 const addbuydate = document.getElementById('addbuydate');
 const addstate = document.getElementById('addstate');
-const addprimaryUpload = document.getElementById(`addfileUpload`);
-const addprimaryPreview1 = document.getElementById(`addpreviewImage1`);
-const addprimaryIcon1 = document.getElementById(`addicon1`);
 const editform = document.getElementById('editform');
-const editfileUpload = document.getElementById('editfileUpload');
 const edittitle = document.getElementById('edittitle');
 const editauthorname = document.getElementById('editauthorname');
 const edittype = document.getElementById('edittype');
@@ -21,10 +17,79 @@ const editduration = document.getElementById('editduration');
 const editeditiondate = document.getElementById('editeditiondate');
 const editbuydate = document.getElementById('editbuydate');
 const editstate = document.getElementById('editstate');
-const editprimaryUpload = document.getElementById(`editfileUpload`);
-const editprimaryPreview1 = document.getElementById(`editpreviewImage1`);
-const editprimaryIcon1 = document.getElementById(`editicon1`);
+const editfileUpload = document.getElementById(`editfileUpload`);
+const addprimaryUpload = document.getElementById(`addfileUpload`);
+const addprimaryPreview1 = document.getElementById(`addpreviewImage1`);
+const addprimaryIcon1 = document.getElementById(`addicon1`);
+// Primary image upload
+const primaryUpload = document.getElementById("editfileUpload");
+const primaryPreview = document.getElementById("editpreviewImage1");
+const primaryIcon = document.getElementById("editicon1");
 
+primaryUpload.addEventListener("change", function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.addEventListener("load", function() {
+            primaryPreview.style.display = "block";
+            primaryPreview.setAttribute("src", this.result);
+            primaryIcon.style.display = "none";
+        });
+        reader.readAsDataURL(file);
+    } else {
+        primaryPreview.style.display = "none";
+        primaryPreview.setAttribute("src", "#");
+        primaryIcon.style.display = "block";
+    }
+});
+
+
+// for (let i = 0; i < 100; i++) {
+// const editprimaryUpload = document.getElementById(`editfileUpload${i}`);
+// const editprimaryPreview1 = document.getElementById(`editpreviewImage1${i}`);
+// const editprimaryIcon1 = document.getElementById(`editicon1${i}`);
+// editprimaryUpload.addEventListener("change", function() {
+//   const file = this.files[0];
+//   if (file) {
+//       const reader = new FileReader();
+//       reader.addEventListener("load", function() {
+//           editprimaryPreview1.style.display = "block";
+//           editprimaryPreview1.setAttribute("src", this.result);
+//           editprimaryIcon1.style.display = "none";
+//       });
+//       reader.readAsDataURL(file);
+//   } else {
+//       editprimaryPreview1.style.display = "none";
+//       editprimaryPreview1.setAttribute("src", "#");
+//       editprimaryIcon1.style.display = "block";
+//   }
+// });
+// }// Get the select element
+  var select = document.getElementById("edittype");
+
+  // Get the input fields
+  var pagesField = document.getElementById("editpagesField");
+  var durationField = document.getElementById("editdurationField");
+
+  // Show the appropriate input field based on the selected option
+  if (select.value === "DVD") {
+    pagesField.style.display = "none";
+    durationField.style.display = "block";
+  } else {
+    pagesField.style.display = "block";
+    durationField.style.display = "none";
+  }
+
+  // Listen for changes to the select element
+  select.addEventListener("change", function() {
+    if (select.value === "DVD") {
+      pagesField.style.display = "none";
+      durationField.style.display = "block";
+    } else {
+      pagesField.style.display = "block";
+      durationField.style.display = "none";
+    }
+  });
 addprimaryUpload.addEventListener("change", function() {
   const file = this.files[0];
   if (file) {
@@ -41,7 +106,7 @@ addprimaryUpload.addEventListener("change", function() {
       addprimaryIcon1.style.display = "block";
   }
 });
-function showTypeFields() {
+function showTypeFields(){
 var addtype = document.getElementById("addtype").value;
 var addpagesField = document.getElementById("addpagesField");
 var adddurationField = document.getElementById("adddurationField");
@@ -139,38 +204,7 @@ if(arr.length === 8) {
   addform.submit(); // submit the form
 }
 }
-editprimaryUpload.addEventListener("change", function() {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.addEventListener("load", function() {
-            editprimaryPreview1.style.display = "block";
-            editprimaryPreview1.setAttribute("src", this.result);
-            editprimaryIcon1.style.display = "none";
-        });
-        reader.readAsDataURL(file);
-    } else {
-        editprimaryPreview1.style.display = "none";
-        editprimaryPreview1.setAttribute("src", "#");
-        editprimaryIcon1.style.display = "block";
-    }
-});
-function showTypeFields1() {
-  var edittype = document.getElementById("edittype").value;
-  var editpagesField = document.getElementById("editpagesField");
-  var editdurationField = document.getElementById("editdurationField");
 
-  // hide all fields by default
-  editpagesField.style.display = "none";
-  editdurationField.style.display = "none";
-
-  // show fields based on selected edittype
-  if (edittype == "Book" || edittype == "Novel" || edittype == "Research paper/thesis" || edittype == "Magazine") {
-    editpagesField.style.display = "block";
-  } else if (edittype == "DVD" ) {
-    editdurationField.style.display = "block";
-  }
-}
  
 function validateInput1() {
   const editfileUploadValue = editfileUpload.value.trim();
@@ -182,12 +216,12 @@ function validateInput1() {
   const now = new Date();
   const editstateValue = editstate.value;
   let arr = [];
-  if(editfileUploadValue === '') {
-    setError(editfileUpload, 'empty input !');
-  }else {
-    setSuccess(editfileUpload);
-    arr.push(true);
-  }
+  // if(editfileUploadValue === '') {
+  //   setError(editfileUpload, 'empty input !');
+  // }else {
+  //   setSuccess(editfileUpload);
+  //   arr.push(true);
+  // }
   if(edittitleValue === '') {
     setError(edittitle, 'Title cannot be blank');
   } else {
@@ -240,7 +274,7 @@ if (editbuydate.value === '' || new Date(editbuydate.value) >= now) {
     setSuccess(editstate);
     arr.push(true);
   }
-  if(arr.length === 8) {
+  if(arr.length === 7) {
     // all fields are filled
     // submit the form or redirect to another page
     editform.submit(); // submit the form

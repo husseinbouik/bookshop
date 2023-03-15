@@ -151,13 +151,25 @@ class Card
   private $title;
   private $authorname;
   private $image;
+  private $state;
+  private $editionDate;
+  private $buyDate;
+  private $status;
+  private $type;
+  private $pagesOrDuration;
 
-  public function __construct($Collection_Code, $title, $authorname, $image)
+  public function __construct($Collection_Code, $title, $authorname, $image, $state, $editionDate, $buyDate, $status, $type, $pagesOrDuration)
   {
     $this->Collection_Code = $Collection_Code;
     $this->title = $title;
     $this->authorname = $authorname;
     $this->image = $image;
+    $this->state = $state;
+    $this->editionDate = $editionDate;
+    $this->buyDate = $buyDate;
+    $this->status = $status;
+    $this->type = $type;
+    $this->pagesOrDuration = $pagesOrDuration;
   }
 
   public function getId()
@@ -180,15 +192,45 @@ class Card
     return $this->image;
   }
 
+  public function getState()
+  {
+    return $this->state;
+  }
+
+  public function getEditionDate()
+  {
+    return $this->editionDate;
+  }
+
+  public function getBuyDate()
+  {
+    return $this->buyDate;
+  }
+
+  public function getStatus()
+  {
+    return $this->status;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+
+  public function getPagesOrDuration()
+  {
+    return $this->pagesOrDuration;
+  }
+
   public static function getCards()
   {
     require('connect.php');
     $cards = array();
 
-    $result = $db->query("SELECT Collection.*, Types.* FROM Collection NATURAL JOIN Types ");
+    $result = $db->query("SELECT Collection.*, Types.* FROM Collection INNER JOIN Types ON Collection.Type_Code = Types.Type_Code");
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      $card = new Card($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image']);
+      $card = new Card($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['State'], $row['Edition_Date'], $row['Buy_Date'], $row['Status'], $row['Type_Name'], $row['pages_or_duration']);
       $cards[] = $card;
     }
     
@@ -196,6 +238,7 @@ class Card
     return $cards;
   }
 }
+
 
 $cards = Card::getCards();
 
@@ -235,13 +278,14 @@ foreach ($cards as $card) {
         <div class="modal-dialog">
           <div class="modal-content h-25">
             <div class="modal-body bgmodal">
-              <form action="insert.php" method="POST" id="editform" enctype="multipart/form-data">
+              <form action="update.php" method="POST" id="editform" enctype="multipart/form-data">
                 <h2>Ajouter l'anonce</h2>
-
                 <div class=" form-controll secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
                   <img id="editicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
-                  <input type="file" name="images[]" id="editfileUpload" />
-                  <img class="previewImage" id="editpreviewImage1" src="#" alt="Image Preview" />
+                  <input type="file" name="images[]" id="editfileUpload" value="<?php echo $card->getImage(); ?>"/>
+                  <input type="hidden" name="collection_code" value="<?php echo $card->getId(); ?>">
+                  <input type="hidden" name="old_image" value="<?php echo $card->getImage(); ?>">
+                  <img class="previewImage" id="editpreviewImage1" src="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
                   <i class="fas fa-check-circle"></i>
                   <i class="fas fa-exclamation-circle"></i>
                   <small>Error message</small>
@@ -249,7 +293,7 @@ foreach ($cards as $card) {
                 <div class="d-flex flex-wrap gap-3">
                   <div class="form-controll ">
                     <label for="exampleFormControlInput1" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="edittitle">
+                    <input type="text" name="title" class="form-control" id="edittitle" value="<?php echo $card->getTitle(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -257,20 +301,20 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Author Name</label>
-                    <input type="text" name="authorname" class="form-control" id="editauthorname">
+                    <input type="text" name="authorname" class="form-control" id="editauthorname" value="<?php echo $card->getAuthorname(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Type</label>
-                    <select class="form-select" name="type" id="edittype" onchange="showTypeFields1()">
+                    <select class="form-select" name="type" id="edittype">
                       <option selected disabled>Type</option>
-                      <option value="Book">Book</option>
-                      <option value="Novel">Novel</option>
-                      <option value="DVD">DVD</option>
-                      <option value="Research paper/thesis">Research paper/thesis</option>
-                      <option value="Magazine">Magazine</option>
+                      <option value="Book" <?php if ($card->getType() == 'Book') {echo 'selected';} ?>>Book</option>
+                      <option value="Novel" <?php if ($card->getType() == 'Novel') {echo 'selected';} ?>>Novel</option>
+                      <option value="DVD" <?php if ($card->getType() == 'DVD') {echo 'selected';} ?>>DVD</option>
+                      <option value="Research paper/thesis" <?php if ($card->getType() == 'Research paper/thesis') {echo 'selected';} ?>>Research paper/thesis</option>
+                      <option value="Magazine" <?php if ($card->getType() == 'Magazine') {echo 'selected';} ?>>Magazine</option>
                     </select>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
@@ -278,7 +322,7 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll" id="editpagesField" style="display:none">
                     <label for="pages">Nombre de pages:</label>
-                    <input type="number" id="editpages" name="pages"><br><br>
+                    <input type="number" id="editpages" name="pages" value="<?php echo $card->getPagesOrDuration(); ?>"><br><br>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -286,14 +330,14 @@ foreach ($cards as $card) {
 
                   <div class="form-controll" id="editdurationField" style="display:none">
                     <label for="duration">Durée (en minutes):</label>
-                    <input type="time" id="editduration" name="duration" step="1"><br><br>
+                    <input type="number" id="editduration" name="duration" value="<?php echo $card->getPagesOrDuration(); ?>" ><br><br>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Edition Date</label>
-                    <input type="date" name="editiondate" class="form-control" id="editeditiondate">
+                    <input type="date" name="editiondate" class="form-control" id="editeditiondate" value="<?php echo $card->getEditionDate(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -301,7 +345,7 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Buy Date</label>
-                    <input type="date" name="buydate" class="form-control" id="editbuydate">
+                    <input type="date" name="buydate" class="form-control" id="editbuydate" value="<?php echo $card->getBuyDate(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -311,11 +355,11 @@ foreach ($cards as $card) {
                     <label for="exampleFormControlInput1" class="form-label">State</label>
                     <select class="form-select" name="state" id="editstate">
                       <option selected disabled>Choose</option>
-                      <option value="New">New</option>
-                      <option value="Good condition">Good condition</option>
-                      <option value="Acceptable">Acceptable</option>
-                      <option value="Quite worn">Quite worn</option>
-                      <option value="Torn ">Torn </option>
+                      <option value="New" <?php if ($card->getState() == 'New') {echo 'selected';} ?>>New</option>
+                      <option value="Good condition" <?php if ($card->getState() == 'Good condition') {echo 'selected';} ?>>Good condition</option>
+                      <option value="Acceptable" <?php if ($card->getState() == 'Acceptable') {echo 'selected';} ?>>Acceptable</option>
+                      <option value="Quite worn" <?php if ($card->getState() == 'Quite worn') {echo 'selected';} ?>>Quite worn</option>
+                      <option value="Torn" <?php if ($card->getState() == 'Torn') {echo 'selected';} ?>>Torn </option>
                     </select>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
