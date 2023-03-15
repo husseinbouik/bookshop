@@ -48,7 +48,7 @@
 <script>
   $(document).ready(function() {
       $(".btn-table").click(function() {
-          var tableFile = $(this).text().toLowerCase() + "_table.html";
+          var tableFile = $(this).text().toLowerCase() + "_table.php";
           $("#table-container").load(tableFile);
       });
   });

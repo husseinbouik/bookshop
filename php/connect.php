@@ -1,9 +1,10 @@
 <?php
-// Database configuration
+
 $host = "localhost";
 $dbname = "borrowing_books";
 $username = "root";
 $password = "";
+
 try {
   // Creating a new PDO instance
   $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -15,4 +16,5 @@ try {
 } catch(PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
 }
+
 ?>

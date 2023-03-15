@@ -14,7 +14,9 @@
             <td>
               <div class="d-flex align-items-center">
                 <div class="rounded-circle  d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;background-color: #ff8049;">
-                  <span class="text-white display-1 font-weight-bold"><?php echo $initials; ?></span>
+                  <span class="text-white display-1 font-weight-bold"><?php 
+                  // echo $initials;
+                   ?></span>
                 </div>
                 <div class="ms-3">
                   <p class="fw-bold mb-1">John Doe</p>
