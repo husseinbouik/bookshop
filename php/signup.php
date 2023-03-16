@@ -35,7 +35,7 @@
     </div>
     <div class="signin-form">
       <h3>Create A New Account</h3>
-      <form action="registration.php" method="post" id="form" class="form" enctype="multipart/form-data">
+      <form action="registration.php"  method="post" id="form" class="form" enctype="multipart/form-data">
         <div class="d-flex gap-2">
           <div class="form-controll ">
             <label for="exampleFormControlInput1" class="form-label">First name</label>

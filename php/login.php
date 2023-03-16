@@ -33,5 +33,6 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     // either the Nickname or Password field is empty, so display an error message
     echo 'Please enter your Nickname and Password';
 }
-
+// Redirect to the collection home page
+header("Location:check_nickname.php");
 ?>

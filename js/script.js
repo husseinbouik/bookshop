@@ -48,21 +48,9 @@ function validateInput() {
     setError(nickname, 'Nickname cannot be blank');
   } else if(!isValidNickname(nicknameValue)) {
     setError(nickname, 'Nickname is not valid');
-  } else {
-    // check if nickname already exists in database
-    $.ajax({
-      url: '../php/check_nickname.php',
-      type: 'POST',
-      data: {nickname: nicknameValue},
-      success: function(response) {
-        if(response === 'exists') {
-          setError(nickname, 'Nickname already exists');
-        } else {
-          setSuccess(nickname);
-          arr.push(true);
-        }
-      }
-    });
+  }else {
+    setSuccess(nickname);
+    arr.push(true);
   }
   if(emailValue === '') {
     setError(email, 'Email cannot be blank');
