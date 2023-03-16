@@ -10,10 +10,11 @@ const birthdate = document.getElementById('birthdate');
 const type = document.getElementById('type');
 const password = document.getElementById('password');
 const confirmpassword = document.getElementById('confirmpassword');
-form.addEventListener("submit", (e) => {
+const submitBtn = document.getElementById('submit-btn');
+submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
   validateInput();
-});  
+}); 
 function validateInput() {
   const firstnameValue = firstname.value.trim();
   const lastnameValue = lastname.value.trim();
@@ -47,9 +48,21 @@ function validateInput() {
     setError(nickname, 'Nickname cannot be blank');
   } else if(!isValidNickname(nicknameValue)) {
     setError(nickname, 'Nickname is not valid');
-  }else {
-    setSuccess(nickname);
-    arr.push(true);
+  } else {
+    // check if nickname already exists in database
+    $.ajax({
+      url: '../php/check_nickname.php',
+      type: 'POST',
+      data: {nickname: nicknameValue},
+      success: function(response) {
+        if(response === 'exists') {
+          setError(nickname, 'Nickname already exists');
+        } else {
+          setSuccess(nickname);
+          arr.push(true);
+        }
+      }
+    });
   }
   if(emailValue === '') {
     setError(email, 'Email cannot be blank');
@@ -107,11 +120,8 @@ function validateInput() {
     setSuccess(confirmpassword);
     arr.push(true);
   }
-  if(arr.length === 11) {
-    // all fields are filled
-    // submit the form or redirect to another page
-    window.location.href = 'registration.php'; // redirect to success page
-    // form.submit(); // submit the form
+  if (arr.length === 11) {
+    form.submit();
   }
 }
 function isValidEmail(email) {

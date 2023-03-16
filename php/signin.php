@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Roboto&family=Rozha+One&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/0e22389e8c.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../js/signin.js" defer></script>
     <link href="../css/style-sign.css" rel="stylesheet"/>
         <title>Document</title>
@@ -16,7 +17,7 @@
     <div class="signin d-flex">
                 <div class="signin-form">
           <h3>Log In</h3>
-          <form action="registration.php"  id="form" class="form" enctype="multipart/form-data">
+          <form action="login.php" method="post"  id="form" class="form" enctype="multipart/form-data">
     <div class="form-controll">
       <label for="exampleFormControlInput1" class="form-label">Nickname</label>
       <input type="text" name="nickname" class="form-control" id="nickname" >
@@ -40,7 +41,7 @@ Remember me
   </label>
 </div>
 <a>you don't have an account ? <a href='signup.php'> sign up<br></a></a>
-<button type="submit" class="register " name="signup">Connexion</button>
+<button type="submit" class="register " id="submit-btn" name="signup">Connexion</button>
           </form>
       </div>
         <div class="bgleft">

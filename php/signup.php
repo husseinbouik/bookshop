@@ -9,8 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Roboto&family=Rozha+One&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/0e22389e8c.js" crossorigin="anonymous"></script>
-
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../js/script.js" defer></script>
   <link href="../css/style-sign.css" rel="stylesheet" />
   <title>Document</title>
@@ -141,7 +140,7 @@
             <a>you already have an account ? <a href='signin.php'> sign in</a></a>
           </label>
         </div>
-        <button type="submit" class="register btn" class="" value="submit" name="signup">Register</button>
+        <button type="submit" class="register btn" class="" value="submit" id="submit-btn" name="signup">Register</button>
       </form>
     </div>
   </div>

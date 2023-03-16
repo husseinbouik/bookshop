@@ -1,7 +1,7 @@
 CREATE TABLE Members(
    Nickname VARCHAR(150),
    Firstname VARCHAR(150),
-      Lastname VARCHAR(150),
+   Lastname VARCHAR(150),
    Password VARCHAR(150),
    Admin BOOLEAN,
    Address VARCHAR(100),
