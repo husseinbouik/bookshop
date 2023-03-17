@@ -78,4 +78,99 @@ class Collection {
     }
     
 }
+class Card
+{
+  private $Collection_Code;
+  private $title;
+  private $authorname;
+  private $image;
+  private $state;
+  private $editionDate;
+  private $buyDate;
+  private $status;
+  private $type;
+  private $pagesOrDuration;
+
+  public function __construct($Collection_Code, $title, $authorname, $image, $state, $editionDate, $buyDate, $status, $type, $pagesOrDuration)
+  {
+    $this->Collection_Code = $Collection_Code;
+    $this->title = $title;
+    $this->authorname = $authorname;
+    $this->image = $image;
+    $this->state = $state;
+    $this->editionDate = $editionDate;
+    $this->buyDate = $buyDate;
+    $this->status = $status;
+    $this->type = $type;
+    $this->pagesOrDuration = $pagesOrDuration;
+  }
+
+  public function getId()
+  {
+    return $this->Collection_Code;
+  }
+
+  public function getTitle()
+  {
+    return $this->title;
+  }
+
+  public function getAuthorname()
+  {
+    return $this->authorname;
+  }
+
+  public function getImage()
+  {
+    return $this->image;
+  }
+
+  public function getState()
+  {
+    return $this->state;
+  }
+
+  public function getEditionDate()
+  {
+    return $this->editionDate;
+  }
+
+  public function getBuyDate()
+  {
+    return $this->buyDate;
+  }
+
+  public function getStatus()
+  {
+    return $this->status;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+
+  public function getPagesOrDuration()
+  {
+    return $this->pagesOrDuration;
+  }
+
+  public static function getCards()
+  {
+    require('connect.php');
+    $cards = array();
+
+    $result = $db->query("SELECT Collection.*, Types.* FROM Collection INNER JOIN Types ON Collection.Type_Code = Types.Type_Code");
+
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      $card = new Card($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['State'], $row['Edition_Date'], $row['Buy_Date'], $row['Status'], $row['Type_Name'], $row['pages_or_duration']);
+      $cards[] = $card;
+    }
+    
+
+    return $cards;
+  }
+}
+
+
 ?>

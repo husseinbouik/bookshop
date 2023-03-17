@@ -33,21 +33,30 @@
         <div class="searchinput ">
             <div class="search mx-auto">
                 <i class="fa fa-search"></i>
-                <input type="text" class="form-control" placeholder="Have a question? Ask Now">
+                <input type="text" class="form-control" placeholder="Find your next favourite book">
                 <button class="btn btn-secondary" >Search</button>
               </div>
         </div>
             </div> 
             <div class="d-flex gap-3">
-                <div class="wow" style="position: relative;margin:10px ;">
-                    <img class="cardimg" src="../imgs/Group 48.png" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
-                    <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
-                    <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
-                        <h5 class="card-title">Call me by your name</h5>
-                        <p class="card-text">Lucas ourlando</p>
-                        <button class="btn btn-warning">RESERVE</button>
+                <?php 
+  include 'Collection.php';
+  $cards = Card::getCards();
+  foreach ($cards as $card) { 
+            ?>
+
+<div class="wow" style="position: relative;margin:10px ;">
+      <img class="cardimg" src="<?php echo $card->getImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
+      <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
+      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
+        <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
+        <p class="card-text"><?php echo $card->getAuthorname(); ?></p>
+                        <button class="btn btn-warning"><?php echo $card->getStatus(); ?></button>
                       </div>
                   </div>
+    <?php      
+        }
+?>
             </div>
 </body>
 </html>
