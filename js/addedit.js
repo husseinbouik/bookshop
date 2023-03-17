@@ -42,29 +42,7 @@ primaryUpload.addEventListener("change", function() {
         primaryIcon.style.display = "block";
     }
 });
-
-
-// for (let i = 0; i < 100; i++) {
-// const editprimaryUpload = document.getElementById(`editfileUpload${i}`);
-// const editprimaryPreview1 = document.getElementById(`editpreviewImage1${i}`);
-// const editprimaryIcon1 = document.getElementById(`editicon1${i}`);
-// editprimaryUpload.addEventListener("change", function() {
-//   const file = this.files[0];
-//   if (file) {
-//       const reader = new FileReader();
-//       reader.addEventListener("load", function() {
-//           editprimaryPreview1.style.display = "block";
-//           editprimaryPreview1.setAttribute("src", this.result);
-//           editprimaryIcon1.style.display = "none";
-//       });
-//       reader.readAsDataURL(file);
-//   } else {
-//       editprimaryPreview1.style.display = "none";
-//       editprimaryPreview1.setAttribute("src", "#");
-//       editprimaryIcon1.style.display = "block";
-//   }
-// });
-// }// Get the select element
+// Get the select element
   var select = document.getElementById("edittype");
 
   // Get the input fields

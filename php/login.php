@@ -22,7 +22,7 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
         if (strpos($_SESSION['nickname'], 'admin') === 0) {
             header("Location:backoffice.php");
         } else {
-            header("Location:collection.php");
+            header("Location:homepage.php");
         }
     } else {
         // the member does not exist or the password is incorrect, so display an error message

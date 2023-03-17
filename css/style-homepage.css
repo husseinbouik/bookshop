@@ -68,3 +68,6 @@ span.brown {
   width: 10px;
   height: 10px;
 }
+.modal-backdrop {
+  z-index: 0;
+}

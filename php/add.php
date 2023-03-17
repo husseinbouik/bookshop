@@ -19,6 +19,7 @@ print_r($_POST) ;
      $editiondate = $_POST['editiondate'];
     $buydate = $_POST['buydate'];
     $state = $_POST['state'];
+    $status = 'Available';
     // Handle file upload
     $image = null;
     $target_dir = "../images/";
@@ -31,7 +32,7 @@ print_r($_POST) ;
             $image = $target_file;
         }
     }
-    $collection->addCollection($title, $authorname, $type,$pages_or_duration , $editiondate, $buydate, $state, $image);
-// Redirect to the collection home page
+    $collection->addCollection($title, $authorname, $type, $pages_or_duration, $editiondate, $buydate, $state, $image,$status);
+    // Redirect to the collection home page
 header("Location:admin.php");
 ?>

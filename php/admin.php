@@ -152,7 +152,7 @@ foreach ($cards as $card) {
     <div class="wow" style="position: relative;margin:10px ;">
       <img class="cardimg" src="<?php echo $card->getImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
       <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
-      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
+      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 7%;">
         <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
         <p class="card-text"><?php echo $card->getAuthorname(); ?></p>
         <div class="d-flex gap-2">

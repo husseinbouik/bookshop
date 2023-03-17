@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/0e22389e8c.js" crossorigin="anonymous"></script>
-    <script src="../js/script.js"></script>
+    <!-- <script src="../js/script.js"></script> -->
     <link href="../css/style-homepage.css"  rel="stylesheet" >
     <title>Document</title>
 </head>
@@ -28,6 +28,15 @@
     <div class="">
     </div>
 </nav>
+<?php
+// session_start();
+// require 'functions.php';
+
+// require 'connect.php';
+
+// require 'navbar.php';
+
+?>
 <div class="homeimg">
         <h1 class="brown">"Welcome to our online borrowing books website"</h1>
         <div class="searchinput ">
@@ -48,10 +57,42 @@
 <div class="wow" style="position: relative;margin:10px ;">
       <img class="cardimg" src="<?php echo $card->getImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
       <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
-      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
+      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 7%;">
         <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
         <p class="card-text"><?php echo $card->getAuthorname(); ?></p>
-                        <button class="btn btn-warning"><?php echo $card->getStatus(); ?></button>
+        <?php if ($card->getStatus() ==='Available') {
+            
+        
+        ?>
+                        <button class="btn btn-primary" data-bs-toggle='modal' data-bs-backdrop="false" data-bs-target="#reseve<?php echo $card->getId(); ?>" role="button" value=''>Available</button>
+                         <!-- Modal delete -->
+      <div class="modal " id="reseve<?php echo $card->getId(); ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content h-25">
+            <div class="modal-body texte-white bgmodal">
+              <h3>Would you like to confirm your book reservation?</h3>
+              <form  action="reserve.php" method="POST" id="reserveform" enctype="multipart/form-data">
+                <input type="hidden" name="collection_code" value="<?php echo $card->getId(); ?>" id="reserve_id">
+                <button type="submit" name="reseve">Confirm</button>
+                <button type="button" class="btn btn-secondary buttons" data-bs-dismiss="modal">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+                        <?php      
+        }elseif ($card->getStatus() ==='Reserved') {
+?>
+                        <button class="btn btn-secondary">Reserved</button>
+
+    <?php      
+        }else{
+?>
+                        <button class="btn btn-warning">Checked out</button>
+
+<?php      
+        }
+?>
                       </div>
                   </div>
     <?php      

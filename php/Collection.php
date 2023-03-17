@@ -6,19 +6,19 @@ class Collection {
     public function __construct($db) {
         $this->db = $db;
     }
-
-    public function addCollection($title, $authorname, $type, $pages_or_duration, $editiondate, $buydate, $state, $image) {
+    public function addCollection($title, $authorname, $type, $pages_or_duration, $editiondate, $buydate, $state, $image,$status) {
         // Insert type into Types table
         $stmt = $this->db->prepare('INSERT INTO types (Type_Name, pages_or_duration) VALUES (?, ?)');
-        $stmt->execute([$type,$pages_or_duration]);
-
+        $stmt->execute([$type, $pages_or_duration]);
+    
         // Retrieve Type_Code from Types table
         $type_code = $this->db->lastInsertId();
-
+    
         // Insert collection into Collection table
-        $stmt = $this->db->prepare('INSERT INTO collection (Title, Author_Name, Cover_Image, State, Type_Code, Edition_Date, Buy_Date) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $stmt->execute([$title, $authorname, $image, $state, $type_code, $editiondate, $buydate]);
+        $stmt = $this->db->prepare('INSERT INTO collection (Title, Author_Name, Cover_Image, State, Type_Code, Edition_Date, Buy_Date, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$title, $authorname, $image, $state, $type_code, $editiondate, $buydate,$status]);
     }
+    
   
     public function updateCollection($collection_code, $title, $authorname, $type, $pages_or_duration, $editiondate, $buydate, $state, $image) {
         // Retrieve Type_Code from Types table
@@ -28,20 +28,49 @@ class Collection {
         $type_code = $row['Type_Code'];
 
         // Update type in Types table if necessary
-        $stmt = $this->db->prepare('SELECT pages_or_duration FROM types WHERE Type_Code = ?');
+        $stmt = $this->db->prepare('SELECT *  FROM types WHERE Type_Code = ?');
         $stmt->execute([$type_code]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row['pages_or_duration'] != $pages_or_duration) {
-            $stmt = $this->db->prepare('UPDATE types SET pages_or_duration = ? WHERE Type_Code = ?');
+        if ($row['pages_or_duration'] != $pages_or_duration   ) {
+            $stmt = $this->db->prepare('UPDATE types SET pages_or_duration = ?  WHERE Type_Code = ?');
             $stmt->execute([$pages_or_duration, $type_code]);
         }
-
+        if ($row['Type_Name'] != $type) {
+          $stmt = $this->db->prepare('UPDATE types SET Type_Name = ?  WHERE Type_Code = ?');
+          $stmt->execute([$type,$type_code]);
+        }
         // Update collection in Collection table
-        $stmt = $this->db->prepare('UPDATE collection SET Title = ?, Author_Name = ?, Cover_Image = ?, State = ?, Type_Code = ?, Edition_Date = ?, Buy_Date = ? WHERE Collection_Code = ?');
+        $stmt = $this->db->prepare('UPDATE collection SET Title = ?, Author_Name = ?, Cover_Image = ?, State = ?, Type_Code = ?, Edition_Date = ?, Buy_Date = ? , Status = "Available" WHERE Collection_Code = ?');
         $stmt->execute([$title, $authorname, $image, $state, $type_code, $editiondate, $buydate, $collection_code]);
     }
-    
-
+    public function updateCollectionState($collection_code, $status, $nickname) {
+      // Prepare the SQL statements
+      $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
+      $reservationSql = "INSERT INTO Reservation (Reservation_Date, Reservation_Expiration_Date, Collection_Code, Nickname) 
+                         VALUES (NOW(), DATE_ADD(NOW(), INTERVAL 1 DAY), :collection_code, :nickname)";
+  
+      // Bind the parameters for the collection SQL statement
+      $collectionStmt = $this->db->prepare($collectionSql);
+      $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
+      $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+  
+      // Bind the parameters for the reservation SQL statement
+      $reservationStmt = $this->db->prepare($reservationSql);
+      $reservationStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+      $reservationStmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+  
+      // Execute the statements within a transaction
+      $this->db->beginTransaction();
+      try {
+          $collectionStmt->execute();
+          $reservationStmt->execute();
+          $this->db->commit();
+      } catch (PDOException $e) {
+          $this->db->rollback();
+          throw $e;
+      }
+  }
+  
     public function deleteCollection($collection_code) {
         // Retrieve Type_Code and Cover_Image from Collection table
         $stmt = $this->db->prepare('SELECT Type_Code, Cover_Image FROM collection WHERE Collection_Code = ?');
@@ -171,6 +200,4 @@ class Card
     return $cards;
   }
 }
-
-
 ?>
