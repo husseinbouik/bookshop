@@ -1,32 +1,121 @@
-<nav class="navbar navbar-expand-lg fixed-top" id="nav">
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item mr-4">
-                        <a class="nav-link text-white" href="guest.php">Home</a>
-                    </li>
-                </ul>
-                
-    <?php if(!authenticated()){ ?>
-    <a href='Account.php' class="btn btn-outline-warning p-2 m-2" > Sign Up </a>
-    <a href='Account.php' class="btn btn-warning p-2 m-2"> Log In </a>
-    <?php  
-    } else { 
-    ?>
 
-    <div class="btn-group me-3">
-    <img class="img-fluid rounded-circle" width="50" src="https://i.stack.imgur.com/YQu5k.png" data-bs-toggle="dropdown" aria-expanded="false" alt="avatar">
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="profile.php">profile</a></li>
-        <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
-    </ul>
-    </div>
-    <?php } ?>
+<?php if (!authenticated()) { ?>
+    <nav class="navbar navbar-transparent fixed-top">
+        <div class="d-flex">
+            <a href="../php/landing-page.php">
+                <div>
+                    <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
+                </div>
+            </a>
+            <div class="mt-5">
+                <span class="brown">OasisBooks</span>
             </div>
         </div>
+        <div class="">
+            <a href="../php/signup.php" class="btn sign-up">Sign Up</a>
+            <a href="../php/signin.php" class="btn sign-in">Sign In</a>
+        </div>
     </nav>
+        <?php
+    } else {
+
+
+        require('connect.php');
+        $initial = strtoupper(substr($_SESSION['nickname'], 0, 1));
+        if (isset($_SESSION["admin"])) {
+            echo $_SESSION["admin"];
+            if ($_SESSION["admin"] == '1') {
+
+        ?>
+                <nav class="navbar navbar-transparent fixed-top" style="  background-color: #f5f5dca9;
+ padding: 0%;">
+                    <div class="d-flex">
+                        <a href="../php/homepage.php">
+                            <div>
+                                <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
+                            </div>
+                        </a>
+                        <div class="mt-5">
+                            <span class="brown">OasisBooks</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group me-3">
+                        <div class="d-flex gap-3">
+                            <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;background-color: #9C382E;">
+                                <span class="text-white display-5 font-weight-bold"><?php echo $initial; ?></span>
+                            </div>
+
+                            <a data-bs-toggle="dropdown" aria-expanded="false" alt="avatar">
+                                <div class="moreicon">
+                                    <i class="fa-solid fa-ellipsis-vertical" style="font-size: 36px;margin: 8px;color: #9C382E;"></i>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="profil.php">profile</a></li>
+                                <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
+                                <li><a class="dropdown-item" href="demands.php" name="logout">Reservations/Borrowings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    </div>
+                    </div>
+                </nav>
+            <?php } else { ?>
+                <nav class="navbar navbar-transparent fixed-top" style="  background-color: #f5f5dca9;
+ padding: 0%;">
+                    <div class="d-flex">
+                        <a href="../php/homepage.php">
+                            <div>
+                                <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
+                            </div>
+                        </a>
+                        <div class="mt-5">
+                            <span class="brown">OasisBooks</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group me-3">
+                        <div class="d-flex gap-3">
+                            <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;background-color: #9C382E;">
+                                <span class="text-white display-5 font-weight-bold"><?php echo $initial; ?></span>
+                            </div>
+
+                            <a data-bs-toggle="dropdown" aria-expanded="false" alt="avatar">
+                                <div class="moreicon">
+                                <i class="fa-solid fa-ellipsis-vertical" style="font-size: 36px;margin: 8px;color: #9C382E;"></i>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="profil.php">profile</a></li>
+                                <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    </div>
+                    </div>
+                </nav>
+    <?php
+            }
+        } else {
+            echo 'whaaaaaaaaaaaaaat';
+        }
+    } ?>
+    <script>
+        // Get the moreicon element
+        var moreicon = document.querySelector(".moreicon");
+
+        // Get the dropdown menu element
+        var dropdown = document.querySelector(".dropdown-menu");
+
+        // Hide the dropdown menu by default
+        dropdown.style.display = "none";
+
+        // Add a click event listener to the moreicon element
+        moreicon.addEventListener("click", function() {
+            // Toggle the display of the dropdown menu
+            dropdown.style.display = (dropdown.style.display === "none") ? "block" : "none";
+        });
+    </script>

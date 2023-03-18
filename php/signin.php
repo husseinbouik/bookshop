@@ -28,7 +28,7 @@
     </div>
 <div class="form-controll">
   <label for="exampleFormControlInput1" class="form-label">Password</label>
-  <input type="text" name="password" class="form-control" id="password" >
+  <input type="password" name="password" class="form-control" id="password" >
   <i class="fas fa-check-circle"></i>
   <i class="fas fa-exclamation-circle"></i>
   <small>Error message</small>

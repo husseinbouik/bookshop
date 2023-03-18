@@ -7,12 +7,13 @@ if (!empty($_POST['firstname'])) {
     $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // prepare the SQL query to insert data into the Members table
-    $stmt = $db->prepare("INSERT INTO Members (Nickname, Firstname, Lastname, Email, PhoneNumber, Address, CIN, Birth_Date, Occupation, Password, Creation_Date) VALUES (:nickname, :firstname, :lastname, :email, :phonenumber, :address, :cin, :birthdate, :type, :password, NOW())");
-
+    $stmt = $db->prepare("INSERT INTO Members (Nickname, Firstname, Lastname, Admin, Email, PhoneNumber, Address, CIN, Birth_Date, Occupation, Password, Creation_Date) VALUES (:nickname, :firstname, :lastname,:admin, :email, :phonenumber, :address, :cin, :birthdate, :type, :password, NOW())");
+$admin = '0';
     // bind the form data to the prepared statement
     $stmt->bindParam(':nickname', $_POST['nickname']);
     $stmt->bindParam(':firstname', $_POST['firstname']);
     $stmt->bindParam(':lastname', $_POST['lastname']);
+    $stmt->bindParam(':admin',$admin);
     $stmt->bindParam(':email', $_POST['email']);
     $stmt->bindParam(':phonenumber', $_POST['phonenumber']);
     $stmt->bindParam(':address', $_POST['address']);

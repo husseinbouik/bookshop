@@ -7,32 +7,51 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
+    <script src="https://kit.fontawesome.com/0e22389e8c.js" crossorigin="anonymous"></script>
+
     <link href="../css/style_profile.css" alt="stylesheet"/>
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-transparent fixed-top">
-        <div class="d-flex">
-            <div>
-        <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
-        </div>
-        <div class="mt-5">
-        <span class="brown">OasisBooks</span>
-        </div></div>
-    <div class="">
-    </div>
-</nav>
+<?php
+session_start();
+require 'functions.php';
+
+require 'connect.php';
+
+require 'navbar.php';
+$nickname = $_SESSION["nickname"];
+$sql = "SELECT * FROM Members WHERE nickname = ?";
+$stmt = $db->prepare($sql);
+$stmt->execute([$nickname]);
+
+
+if ($stmt->rowCount() > 0) {
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $first_name = $row["Firstname"];
+  $last_name = $row["Lastname"];
+  $phone_number = $row["PhoneNumber"];
+  $email = $row["Email"];
+  $password = $row["Password"];
+
+  // Replace HB with the user's initials
+  $initials = strtoupper(substr($first_name, 0, 1) . substr($last_name, 0, 1));
+} else {
+  echo "User not found.";
+}
+
+?>
   <!-- Display user's information using HTML code -->
   <div class="profilinfo d-flex gap-5 " style="height: 320px; padding: 0%; margin-top:89px;">
     <div class="rounded-circle  d-flex justify-content-center align-items-center" style="width: 150px; height: 150px;margin-top:89px;margin-left:89px;background-color: #ff8049;">
       <span class="text-white display-1 font-weight-bold"><?php echo $initials; ?></span>
     </div>
     <div class="userinfo  p-4 rounded w-50 " style=" background-color: #FAFAEE;">
-      <p class="card-text">First name: <span class="fw-bold"><?php echo  $row["first_name"]; ?></span></p>
-      <p class="card-text">Last name: <span class="fw-bold"><?php echo $row["last_name"]; ?></span></p>
-      <p class="card-text">Phone number: <span class="fw-bold"><?php echo $row["phone_number"];; ?></span></p>
-      <p class="card-text">Email: <span class="fw-bold"><?php echo $row["email"]; ?></span></p>
-      <p class="card-text">Password: <span class="fw-bold"><?php echo $row["password"]; ?></span></p>
+      <p class="card-text">First name: <span class="fw-bold"><?php echo  $row["Firstname"]; ?></span></p>
+      <p class="card-text">Last name: <span class="fw-bold"><?php echo $row["Lastname"]; ?></span></p>
+      <p class="card-text">Phone number: <span class="fw-bold"><?php echo $row["PhoneNumber"];; ?></span></p>
+      <p class="card-text">Email: <span class="fw-bold"><?php echo $row["Email"]; ?></span></p>
+      <p class="card-text">Password: <span class="fw-bold"><?php echo $row["Password"]; ?></span></p>
       <div class="editprofil"><button  type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#editModal" >Edit <iconify-icon icon="material-symbols:edit"></iconify-icon></button></div>
     </div>
   </div>
@@ -48,19 +67,19 @@
         <form method="POST" action="editprofilinfo.php" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo$row["first_name"]; ?>">
+            <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo$row["Firstname"]; ?>">
           </div>
           <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $row["last_name"]; ?>">
+            <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $row["Lastname"]; ?>">
           </div>
           <div class="mb-3">
             <label for="phoneNumber" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $row["phone_number"]; ?>">
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $row["PhoneNumber"]; ?>">
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?php echo $row["email"]; ?>">
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $row["Email"]; ?>">
           </div>
           <div class="mb-3">
             <label for="currentPassword" class="form-label">Current Password</label>

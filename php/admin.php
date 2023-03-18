@@ -18,21 +18,15 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-transparent fixed-top">
-    <div class="d-flex">
-      <div>
-        <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
+<?php
+session_start();
+require 'functions.php';
 
-      </div>
-      <div class="mt-5">
-        <span class="brown">OasisBooks</span>
+require 'connect.php';
 
-      </div>
-    </div>
-    </a>
-    <div class="">
-    </div>
-  </nav>
+require 'navbar.php';
+
+?>
   <div class="homeimg">
     <h1 class="brown">"Welcome to our online borrowing books website"</h1>
     <div class="searchinput ">

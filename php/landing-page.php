@@ -14,21 +14,10 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-transparent fixed-top">
-            <div class="d-flex">
-                <a href="../php/landing-page.html">
-                <div>
-            <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
-            </div>
-        </a>
-            <div class="mt-5">
-            <span class="brown">OasisBooks</span>
-            </div></div>
-        <div class="">
-            <a href="../php/signup.php" class="btn sign-up">Sign Up</a>
-            <a href="../php/signin.php" class="btn sign-in">Sign In</a>
-          </div>
-    </nav>
+<?php 
+require 'functions.php';
+require 'navbar.php';
+?>
     <div class="position-relative">
         <img src="../imgs/unsplash_ZEzO1kaaYrY.png" alt="your-image-description" class="img-fluid">
         <div class="slogan position-absolute top-50 start-50 translate-middle text-start">
@@ -53,64 +42,65 @@
                     <div class="wrapper">
                         <div class="items-container roll-LL">
                             <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
+                                <img src="../imgs/Group 47.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 48.png" alt="" class="company">                   
+                             </div>                            
+                             <div class="item">
+                                <img src="../imgs/Group 49.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 50.png" alt="" class="company">                   
+                             </div>
                         </div>
                         <div class="items-container roll-RL">
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">
-                            </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
+                        <div class="item">
+                                <img src="../imgs/Group 47.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 48.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 49.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 50.png" alt="" class="company">                   
+                             </div>
+
                           
                         </div>
                     </div>
                     <div class="wrapper">
                         <div class="items-container reverse-roll-LL">
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
+                        <div class="item">
+                                <img src="../imgs/Group 50.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 51.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 52.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 53.png" alt="" class="company">                   
+                             </div>
+
                           
                         </div>
                         <div class="items-container reverse-roll-RL">
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
-                            <div class="item">
-                                <img src="/imgs/" alt="" class="company">                    </div>
+                        <div class="item">
+                                <img src="../imgs/Group 54.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 53.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 52.png" alt="" class="company">                   
+                             </div>
+                             <div class="item">
+                                <img src="../imgs/Group 51.png" alt="" class="company">                   
+                             </div>
                         </div>
                     </div>
                     <div class="end-roller"></div>

@@ -18,12 +18,14 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
         session_start();
         $_SESSION['nickname'] = $member['Nickname'];
         $_SESSION['firstname'] = $member['Firstname'];
+        $_SESSION['admin'] = $member['Admin'];
         
-        if (strpos($_SESSION['nickname'], 'admin') === 0) {
-            header("Location:backoffice.php");
+        if ($member['Admin'] == 1) {
+            header("Location:admin.php");
         } else {
             header("Location:homepage.php");
         }
+        
     } else {
         // the member does not exist or the password is incorrect, so display an error message
         echo 'Invalid Nickname or Password';
@@ -34,5 +36,5 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     echo 'Please enter your Nickname and Password';
 }
 // Redirect to the collection home page
-header("Location:check_nickname.php");
+// header("Location:check_nickname.php");
 ?>

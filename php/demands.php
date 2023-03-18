@@ -18,27 +18,16 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-transparent " style="background-color: #F5F5DC;padding: 0%;">
-      <div class="d-flex">
-        <a class="navbar-brand" href="../php/admin.html">
-        <div>
-    <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
-    </div>
-</a>
-    <div class="mt-5 d-flex">
-    <span class="brown">OasisBooks</span>
-    </div>     
-</div>
-<div class="d-flex gap-3">
-  <div class="rounded-circle  d-flex " style="width: 50px; height: 50px;background-color: #9C382E;">
-    <span class="text-white display-1 font-weight-bold"><?php echo $initial; ?></span>
-  </div>
-  <div class="moreicon">
-  <i class="fa-solid fa-ellipsis-vertical" style="font-size: 36px;margin: 8px;color: #9C382E;"></i>
-</div>
-</div>
-</nav>
-<div class="butttons">
+    <?php
+session_start();
+require 'functions.php';
+
+require 'connect.php';
+
+require 'navbar.php';
+
+?>
+<div class="buttons" style="margin: 100px;">
   <button class="btn btn-table btnborrowing" type="button" data-toggle="collapse" data-target="#table-container">Borrowing</button>  
   <button class="btn btn-table btnreservation" type="button" data-toggle="collapse" data-target="#table-container">Reservations</button>
 </div>

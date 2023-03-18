@@ -15,7 +15,7 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-transparent fixed-top">
+    <!-- <nav class="navbar navbar-transparent fixed-top">
         <div class="d-flex">
             <div>
         <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
@@ -27,14 +27,14 @@
         </div></div>
     <div class="">
     </div>
-</nav>
+</nav> -->
 <?php
-// session_start();
-// require 'functions.php';
+session_start();
+require 'functions.php';
 
-// require 'connect.php';
+require 'connect.php';
 
-// require 'navbar.php';
+require 'navbar.php';
 
 ?>
 <div class="homeimg">
