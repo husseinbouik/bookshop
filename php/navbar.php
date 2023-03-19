@@ -30,7 +30,7 @@
                 <nav class="navbar navbar-transparent fixed-top" style="  background-color: #f5f5dca9;
  padding: 0%;">
                     <div class="d-flex">
-                        <a href="../php/homepage.php">
+                        <a href="../php/admin.php">
                             <div>
                                 <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
                             </div>
@@ -52,9 +52,9 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="profil.php">profile</a></li>
-                                <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
+                                <li><a class="dropdown-item" href="profiladmin.php">profile</a></li>
                                 <li><a class="dropdown-item" href="demands.php" name="logout">Reservations/Borrowings</a></li>
+                                <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
                             </ul>
                         </div>
                     </div>

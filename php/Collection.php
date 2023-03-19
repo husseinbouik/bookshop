@@ -70,7 +70,62 @@ class Collection {
           throw $e;
       }
   }
-  
+  public function updateCollectionState1($collection_code, $status, $nickname,$Reservation_Code) {
+    // Prepare the SQL statements
+    $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
+    $reservationSql = "INSERT INTO Borrowings (Borrowing_Date, Borrowing_Return_Date, Collection_Code, Nickname,Reservation_Code) 
+                       VALUES (NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY), :collection_code, :nickname,:Reservation_Code)";
+
+    // Bind the parameters for the collection SQL statement
+    $collectionStmt = $this->db->prepare($collectionSql);
+    $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+
+    // Bind the parameters for the reservation SQL statement
+    $reservationStmt = $this->db->prepare($reservationSql);
+    $reservationStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+    $reservationStmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+    $reservationStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
+
+    // Execute the statements within a transaction
+    $this->db->beginTransaction();
+    try {
+        $collectionStmt->execute();
+        $reservationStmt->execute();
+        $this->db->commit();
+    } catch (PDOException $e) {
+        $this->db->rollback();
+        throw $e;
+    }
+}
+public function updateCollectionState2($collection_code, $status) {
+    // Prepare the SQL statements
+    $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
+    // $reservationSql = "INSERT INTO Borrowings (Borrowing_Date, Borrowing_Return_Date, Collection_Code, Nickname,Reservation_Code) 
+    //                    VALUES (NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY), :collection_code, :nickname,:Reservation_Code)";
+
+    // Bind the parameters for the collection SQL statement
+    $collectionStmt = $this->db->prepare($collectionSql);
+    $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+
+    // Bind the parameters for the reservation SQL statement
+    // $reservationStmt = $this->db->prepare($reservationSql);
+    // $reservationStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+    // $reservationStmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+    // $reservationStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
+
+    // Execute the statements within a transaction
+    $this->db->beginTransaction();
+    try {
+        $collectionStmt->execute();
+        // $reservationStmt->execute();
+        $this->db->commit();
+    } catch (PDOException $e) {
+        $this->db->rollback();
+        throw $e;
+    }
+}
     public function deleteCollection($collection_code) {
         // Retrieve Type_Code and Cover_Image from Collection table
         $stmt = $this->db->prepare('SELECT Type_Code, Cover_Image FROM collection WHERE Collection_Code = ?');
@@ -200,4 +255,325 @@ class Card
     return $cards;
   }
 }
-?>
+class Book {
+  private $collectionCode;
+  private $nickname;
+  private $title;
+  private $authorName;
+  private $coverImage;
+  private $status;
+  private $reservationDate;
+  private $reservationExpirationDate;
+  private $borrowingDate;
+  private $borrowingReturnDate;
+
+  public function __construct($collectionCode,$nickname, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $borrowingDate, $borrowingReturnDate) {
+      $this->collectionCode = $collectionCode;
+      $this->nickname = $nickname;
+      $this->title = $title;
+      $this->authorName = $authorName;
+      $this->coverImage = $coverImage;
+      $this->status = $status;
+      $this->reservationDate = $reservationDate;
+      $this->reservationExpirationDate = $reservationExpirationDate;
+      $this->borrowingDate = $borrowingDate;
+      $this->borrowingReturnDate = $borrowingReturnDate;
+  }
+
+  public function getCollectionCode() {
+      return $this->collectionCode;
+  }
+  public function getNickname() {
+    return $this->nickname;
+}
+
+  public function getTitle() {
+      return $this->title;
+  }
+
+  public function getAuthorName() {
+      return $this->authorName;
+  }
+
+  public function getCoverImage() {
+      return $this->coverImage;
+  }
+
+  public function getStatus() {
+      return $this->status;
+  }
+
+  public function getReservationDate() {
+      return $this->reservationDate;
+  }
+
+  public function getReservationExpirationDate() {
+      return $this->reservationExpirationDate;
+  }
+
+  public function getBorrowingDate() {
+      return $this->borrowingDate;
+  }
+
+  public function getBorrowingReturnDate() {
+      return $this->borrowingReturnDate;
+  }
+  public static function getProfilcards()
+  {
+      require('connect.php');
+      $cards = array();
+  
+      $stmt = $db->prepare("SELECT 
+      Collection.Collection_Code,
+      Collection.Title, Collection.Author_Name, 
+      Collection.Cover_Image, 
+       Collection.Status, 
+       Reservation.Reservation_Date,
+       Reservation.Reservation_Expiration_Date,
+      Borrowings.Borrowing_Date, 
+      Borrowings.Borrowing_Return_Date
+      FROM Collection
+      INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
+      LEFT JOIN Borrowings ON Reservation.Reservation_Code = Borrowings.Reservation_Code
+      INNER JOIN Members ON Members.Nickname = Reservation.Nickname
+      WHERE Members.Nickname = :nickname");
+      $stmt->bindParam(':nickname', $_SESSION['nickname']);
+      $stmt->execute();
+      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $card = new Book($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['Status'],$row['Reservation_Date'], $row['Reservation_Expiration_Date'], $row['Borrowing_Date'], $row['Borrowing_Return_Date'],$row['Nickname']);
+          $cards[] = $card;
+      }
+  
+      return $cards;
+  }
+}
+
+
+class Reservations {
+  private $collectionCode;
+  private $nickname;
+  private $title;
+  private $authorName;
+  private $coverImage;
+  private $status;
+  private $reservationDate;
+  private $reservationExpirationDate;
+  private $firstname;
+  private $lastname;
+  private $email;
+  private $reservationcode;
+
+  public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $firstname, $lastname, $email,$reservationcode) {
+      $this->collectionCode = $collectionCode;
+      $this->nickname = $nickname;
+      $this->title = $title;
+      $this->authorName = $authorName;
+      $this->coverImage = $coverImage;
+      $this->status = $status;
+      $this->reservationDate = $reservationDate;
+      $this->reservationExpirationDate = $reservationExpirationDate;
+      $this->firstname = $firstname;
+      $this->lastname = $lastname;
+      $this->email = $email;
+      $this->reservationcode = $reservationcode;
+  }
+
+  public function getCollectionCode() {
+      return $this->collectionCode;
+  }
+
+  public function getNickname() {
+      return $this->nickname;
+  }
+
+  public function getTitle() {
+      return $this->title;
+  }
+
+  public function getAuthorName() {
+      return $this->authorName;
+  }
+
+  public function getCoverImage() {
+      return $this->coverImage;
+  }
+
+  public function getStatus() {
+      return $this->status;
+  }
+
+  public function getReservationDate() {
+      return $this->reservationDate;
+  }
+
+  public function getReservationExpirationDate() {
+      return $this->reservationExpirationDate;
+  }
+
+  public function getFirstname() {
+      return $this->firstname;
+  }
+
+  public function getLastname() {
+      return $this->lastname;
+  }
+
+  public function getEmail() {
+      return $this->email;
+  }
+  public function getReservationCode() {
+    return $this->reservationcode;
+}
+
+  public static function getReservation() {
+      require('connect.php');
+      $cards = array();
+      $stmt = $db->prepare("SELECT 
+          Collection.*, 
+          Reservation.*,
+          Members.*
+          FROM Collection
+          INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
+          INNER JOIN Members ON Reservation.Nickname = Members.Nickname;
+      ");
+
+      $stmt->execute();
+      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $card = new Reservations(
+              $row['Collection_Code'], 
+              $row['Nickname'], 
+              $row['Title'],
+              $row['Author_Name'],  
+              $row['Cover_Image'], 
+              $row['Status'],
+              $row['Reservation_Date'], 
+              $row['Reservation_Expiration_Date'],
+              $row['Firstname'],
+              $row['Lastname'],
+              $row['Email'],
+              $row['Reservation_Code']
+
+          );
+          $cards[] = $card;
+      }
+
+      return $cards;
+  }
+}
+class Borrowings {
+    private $collectionCode;
+    private $nickname;
+    private $title;
+    private $firstname;
+    private $lastname;
+    private $email;
+
+    private $authorName;
+    private $coverImage;
+    private $status;
+    private $borrowingDate;
+    private $borrowingReturnDate;
+    private $reservationCode;
+  
+    public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $firstname, $lastname, $email, $reservationcode, $borrowingDate, $borrowingReturnDate, $reservationCode) {
+        $this->collectionCode = $collectionCode;
+        $this->nickname = $nickname;
+        $this->title = $title;
+        $this->authorName = $authorName;
+        $this->coverImage = $coverImage;
+        $this->status = $status;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->email = $email;
+        $this->reservationCode = $reservationCode;
+        $this->borrowingDate = $borrowingDate;
+        $this->borrowingReturnDate = $borrowingReturnDate;
+        $this->reservationCode = $reservationCode;
+    }
+  
+    public function getCollectionCode() {
+        return $this->collectionCode;
+    }
+  
+    public function getNickname() {
+        return $this->nickname;
+    }
+  
+    public function getTitle() {
+        return $this->title;
+    }
+  
+    public function getAuthorName() {
+        return $this->authorName;
+    }
+  
+    public function getCoverImage() {
+        return $this->coverImage;
+    }
+  
+    public function getStatus() {
+        return $this->status;
+    }
+  
+    public function getFirstname() {
+        return $this->firstname;
+    }
+  
+    public function getLastname() {
+        return $this->lastname;
+    }
+  
+    public function getEmail() {
+        return $this->email;
+    }
+  
+    public function getReservationCode() {
+        return $this->reservationCode;
+    }
+  
+    public function getBorrowingDate() {
+        return $this->borrowingDate;
+    }
+  
+    public function getBorrowingReturnDate() {
+        return $this->borrowingReturnDate;
+    }
+  
+    public static function getBorrowings() {
+        require('connect.php');
+        $cards = array();
+        $stmt = $db->prepare("SELECT 
+            Collection.*, 
+            Reservation.*,
+            Members.*,
+            Borrowings.*
+            FROM Collection
+            INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
+            INNER JOIN Members ON Reservation.Nickname = Members.Nickname
+            INNER JOIN Borrowings ON Borrowings.Reservation_Code = Reservation.Reservation_Code;
+        ");
+  
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $card = new Borrowings(
+                $row['Collection_Code'], 
+                $row['Nickname'], 
+                $row['Title'],
+                $row['Author_Name'],  
+                $row['Cover_Image'], 
+                $row['Status'],
+                $row['Firstname'],
+                $row['Lastname'],
+                $row['Email'],
+                $row['Reservation_Code'],
+                $row['Borrowing_Date'],
+                $row['Borrowing_Return_Date'],
+                $row['Reservation_Code']
+            );
+            $cards[] = $card;
+        }
+  
+        return $cards;
+    }
+}
+

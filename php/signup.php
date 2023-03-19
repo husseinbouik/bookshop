@@ -106,10 +106,10 @@
           <div class="form-controll">
             <select name="type" class="form-select" id="type" aria-label="Default select example">
               <option selected>Type</option>
-              <option value="1">Etudiant</option>
-              <option value="2"> Fonctionnaire</option>
-              <option value="3">Employé</option>
-              <option value="4"> Femme au foyer</option>
+              <option value="Etudiant">Etudiant</option>
+              <option value="Fonctionnaire"> Fonctionnaire</option>
+              <option value="Employé">Employé</option>
+              <option value="Femme au foyer">Femme au foyer</option>
 
             </select>
             <i class="fas fa-check-circle"></i>

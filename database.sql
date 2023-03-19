@@ -38,8 +38,8 @@ CREATE TABLE Collection(
 );
 CREATE TABLE Reservation(
    Reservation_Code INT AUTO_INCREMENT,
-   Reservation_Date DATE,
-   Reservation_Expiration_Date DATE,
+   Reservation_Date DATETIME,
+   Reservation_Expiration_Date DATETIME,
    Collection_Code INT NOT NULL,
    Nickname VARCHAR(150) NOT NULL,
    PRIMARY KEY(Reservation_Code),
@@ -49,8 +49,8 @@ CREATE TABLE Reservation(
 
 CREATE TABLE Borrowings(
    Borrowing_Code INT AUTO_INCREMENT,
-   Borrowing_Date DATE,
-   Borrowing_Return_Date DATE,
+   Borrowing_Date DATETIME,
+   Borrowing_Return_Date DATETIME,
    Collection_Code INT NOT NULL,
    Nickname VARCHAR(150) NOT NULL,
    Reservation_Code INT NOT NULL,
