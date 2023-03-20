@@ -44,12 +44,12 @@ require 'navbar.php';
     <div class="modal-dialog">
       <div class="modal-content h-25">
         <div class="modal-body bgmodal">
-          <form action="add.php" method="post" id="addform" enctype="multipart/form-data">
+          <form action="add.php" method="post" id="addform" class="addform" enctype="multipart/form-data">
             <h2>Ajouter l'anonce</h2>
             <div class=" form-controll secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
-              <img id="addicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
-              <input type="file" name="images[]" id="addfileUpload" />
-              <img class="previewImage" id="addpreviewImage1" src="#" alt="Image Preview" />
+              <img id="addicon1" class="addicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
+              <input type="file" name="images[]" class="addfileUpload" id="addfileUpload" />
+              <img class="previewImage addpreviewImage1" id="addpreviewImage1" src="#" alt="Image Preview" />
               <i class="fas fa-check-circle"></i>
               <i class="fas fa-exclamation-circle"></i>
               <small>Error message</small>
@@ -57,7 +57,7 @@ require 'navbar.php';
             <div class="d-flex flex-wrap gap-3">
               <div class="form-controll ">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="text" name="title" class="form-control" id="addtitle">
+                <input type="text" name="title" class="form-control addtitle " id="addtitle">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
@@ -65,14 +65,14 @@ require 'navbar.php';
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">Author Name</label>
-                <input type="text" name="authorname" class="form-control" id="addauthorname">
+                <input type="text" name="authorname" class="form-control addauthorname" id="addauthorname">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">Type</label>
-                <select class="form-select" name="type" id="addtype" onchange="showTypeFields()">
+                <select class="form-select addtype" name="type" id="addtype" onchange="showTypeFields()">
                   <option selected disabled>Type</option>
                   <option value="Book">Book</option>
                   <option value="Novel">Novel</option>
@@ -86,7 +86,7 @@ require 'navbar.php';
               </div>
               <div class="form-controll" id="addpagesField" style="display:none">
                 <label for="pages">Nombre de pages:</label>
-                <input type="number" id="addpages" name="pages"><br><br>
+                <input type="number" class="addpages" id="addpages" name="pages"><br><br>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
@@ -94,14 +94,14 @@ require 'navbar.php';
 
               <div class="form-controll" id="adddurationField" style="display:none">
                 <label for="duration">Durée (en minutes):</label>
-                <input type="number" id="addduration" name="duration"><br><br>
+                <input type="number" class="addduration" id="addduration" name="duration"><br><br>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">Edition Date</label>
-                <input type="date" name="editiondate" class="form-control" id="addeditiondate">
+                <input type="date" name="editiondate" class="form-control addeditiondate" id="addeditiondate">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
@@ -109,7 +109,7 @@ require 'navbar.php';
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">Buy Date</label>
-                <input type="date" name="buydate" class="form-control" id="addbuydate">
+                <input type="date" name="buydate" class="form-control addbuydate" id="addbuydate">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error message</small>
@@ -117,7 +117,7 @@ require 'navbar.php';
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">State</label>
-                <select class="form-select" name="state" id="addstate">
+                <select class="form-select addstate" name="state" id="addstate">
                   <option selected disabled>Choose</option>
                   <option value="New">New</option>
                   <option value="Good condition">Good condition</option>
@@ -177,14 +177,14 @@ foreach ($cards as $card) {
         <div class="modal-dialog">
           <div class="modal-content h-25">
             <div class="modal-body bgmodal">
-              <form action="update.php" method="POST" id="editform" enctype="multipart/form-data">
+              <form action="update.php" method="POST" id="editform" class="editform" enctype="multipart/form-data">
                 <h2>Ajouter l'anonce</h2>
                 <div class=" form-controll secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
                   <img id="editicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
-                  <input type="file" name="images[]" id="editfileUpload" value="<?php echo $card->getImage(); ?>"/>
+                  <input type="file" name="images[]" class="editfileUpload" id="editfileUpload" value="<?php echo $card->getImage(); ?>"/>
                   <input type="hidden" name="collection_code" value="<?php echo $card->getId(); ?>">
                   <input type="hidden" name="old_image" value="<?php echo $card->getImage(); ?>">
-                  <img class="previewImage" id="editpreviewImage1" src="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
+                  <img class="previewImage editpreviewImage1" id="editpreviewImage1" src="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
                   <i class="fas fa-check-circle"></i>
                   <i class="fas fa-exclamation-circle"></i>
                   <small>Error message</small>
@@ -192,7 +192,7 @@ foreach ($cards as $card) {
                 <div class="d-flex flex-wrap gap-3">
                   <div class="form-controll ">
                     <label for="exampleFormControlInput1" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="edittitle" value="<?php echo $card->getTitle(); ?>">
+                    <input type="text" name="title" class="form-control edittitle" id="edittitle" value="<?php echo $card->getTitle(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -200,14 +200,14 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Author Name</label>
-                    <input type="text" name="authorname" class="form-control" id="editauthorname" value="<?php echo $card->getAuthorname(); ?>">
+                    <input type="text" name="authorname" class="form-control editauthorname" id="editauthorname" value="<?php echo $card->getAuthorname(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Type</label>
-                    <select class="form-select" name="type" id="edittype">
+                    <select class="form-select  edittype" name="type" id="edittype">
                       <option selected disabled>Type</option>
                       <option value="Book" <?php if ($card->getType() == 'Book') {echo 'selected';} ?>>Book</option>
                       <option value="Novel" <?php if ($card->getType() == 'Novel') {echo 'selected';} ?>>Novel</option>
@@ -219,24 +219,24 @@ foreach ($cards as $card) {
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
-                  <div class="form-controll" id="editpagesField" style="display:none">
+                  <div class="form-controll editpagesField" id="editpagesField" style="display:none">
                     <label for="pages">Nombre de pages:</label>
-                    <input type="number" id="editpages" name="pages" value="<?php echo $card->getPagesOrDuration(); ?>"><br><br>
+                    <input type="number" class="editpages" id="editpages" name="pages" value="<?php echo $card->getPagesOrDuration(); ?>"><br><br>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
 
-                  <div class="form-controll" id="editdurationField" style="display:none">
+                  <div class="form-controll editdurationField" id="editdurationField" style="display:none">
                     <label for="duration">Durée (en minutes):</label>
-                    <input type="number" id="editduration" name="duration" value="<?php echo $card->getPagesOrDuration(); ?>" ><br><br>
+                    <input type="number" class="editduration" id="editduration" name="duration" value="<?php echo $card->getPagesOrDuration(); ?>" ><br><br>
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Edition Date</label>
-                    <input type="date" name="editiondate" class="form-control" id="editeditiondate" value="<?php echo $card->getEditionDate(); ?>">
+                    <input type="date" name="editiondate" class="form-control editeditiondate" id="editeditiondate" value="<?php echo $card->getEditionDate(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -244,7 +244,7 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">Buy Date</label>
-                    <input type="date" name="buydate" class="form-control" id="editbuydate" value="<?php echo $card->getBuyDate(); ?>">
+                    <input type="date" name="buydate" class="form-control editbuydate" id="editbuydate" value="<?php echo $card->getBuyDate(); ?>">
                     <i class="fas fa-check-circle"></i>
                     <i class="fas fa-exclamation-circle"></i>
                     <small>Error message</small>
@@ -252,7 +252,7 @@ foreach ($cards as $card) {
                   </div>
                   <div class="form-controll">
                     <label for="exampleFormControlInput1" class="form-label">State</label>
-                    <select class="form-select" name="state" id="editstate">
+                    <select class="form-select editstate" name="state" id="editstate">
                       <option selected disabled>Choose</option>
                       <option value="New" <?php if ($card->getState() == 'New') {echo 'selected';} ?>>New</option>
                       <option value="Good condition" <?php if ($card->getState() == 'Good condition') {echo 'selected';} ?>>Good condition</option>
@@ -266,7 +266,7 @@ foreach ($cards as $card) {
                   </div>
                 </div>
                 <div class="justify-content-center d-flex">
-                  <button name="addBtn" value="submit" type="submit" class="btn buttons" id="addBtn">update</button>
+                  <button name="addBtn" value="submit" type="submit" class="btn buttons addBtn" id="addBtn">update</button>
                 </div>
               </form>
             </div>

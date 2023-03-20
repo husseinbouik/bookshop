@@ -1,30 +1,30 @@
-const addform = document.getElementById('addform');
-const addfileUpload = document.getElementById('addfileUpload');
-const addtitle = document.getElementById('addtitle');
-const addauthorname = document.getElementById('addauthorname');
-const addtype = document.getElementById('addtype');
-const addpages = document.getElementById('addpages');
-const addduration = document.getElementById('addduration');
-const addeditiondate = document.getElementById('addeditiondate');
-const addbuydate = document.getElementById('addbuydate');
-const addstate = document.getElementById('addstate');
-const editform = document.getElementById('editform');
-const edittitle = document.getElementById('edittitle');
-const editauthorname = document.getElementById('editauthorname');
-const edittype = document.getElementById('edittype');
-const editpages = document.getElementById('editpages');
-const editduration = document.getElementById('editduration');
-const editeditiondate = document.getElementById('editeditiondate');
-const editbuydate = document.getElementById('editbuydate');
-const editstate = document.getElementById('editstate');
-const editfileUpload = document.getElementById(`editfileUpload`);
-const addprimaryUpload = document.getElementById(`addfileUpload`);
-const addprimaryPreview1 = document.getElementById(`addpreviewImage1`);
-const addprimaryIcon1 = document.getElementById(`addicon1`);
+const addform = document.getElementsByClassName('.addform');
+const addfileUpload = document.getElementsByClassName('.addfileUpload');
+const addtitle = document.getElementsByClassName('.addtitle');
+const addauthorname = document.getElementsByClassName('.addauthorname');
+const addtype = document.getElementsByClassName('.addtype');
+const addpages = document.getElementsByClassName('.addpages');
+const addduration = document.getElementsByClassName('.addduration');
+const addeditiondate = document.getElementsByClassName('.addeditiondate');
+const addbuydate = document.getElementsByClassName('.addbuydate');
+const addstate = document.getElementsByClassName('.addstate');
+const editform = document.getElementsByClassName('.editform');
+const edittitle = document.getElementsByClassName('.edittitle');
+const editauthorname = document.getElementsByClassName('.editauthorname');
+const edittype = document.getElementsByClassName('.edittype');
+const editpages = document.getElementsByClassName('.editpages');
+const editduration = document.getElementsByClassName('.editduration');
+const editeditiondate = document.getElementsByClassName('.editeditiondate');
+const editbuydate = document.getElementsByClassName('.editbuydate');
+const editstate = document.getElementsByClassName('.editstate');
+const editfileUpload = document.getElementsByClassName(`.editfileUpload`);
+const addprimaryUpload = document.getElementsByClassName(`.addfileUpload`);
+const addprimaryPreview1 = document.getElementsByClassName(`.addpreviewImage1`);
+const addprimaryIcon1 = document.getElementsByClassName(`.addicon1`);
 // Primary image upload
-const primaryUpload = document.getElementById("editfileUpload");
-const primaryPreview = document.getElementById("editpreviewImage1");
-const primaryIcon = document.getElementById("editicon1");
+const primaryUpload = document.getElementsByClassName(".editfileUpload");
+const primaryPreview = document.getElementsByClassName(".editpreviewImage1");
+const primaryIcon = document.getElementsByClassName(".editicon1");
 
 primaryUpload.addEventListener("change", function() {
     const file = this.files[0];
@@ -43,11 +43,11 @@ primaryUpload.addEventListener("change", function() {
     }
 });
 // Get the select element
-  var select = document.getElementById("edittype");
+  var select = document.getElementsByClassName(".edittype");
 
   // Get the input fields
-  var pagesField = document.getElementById("editpagesField");
-  var durationField = document.getElementById("editdurationField");
+  var pagesField = document.getElementsByClassName(".editpagesField");
+  var durationField = document.getElementsByClassName(".editdurationField");
 
   // Show the appropriate input field based on the selected option
   if (select.value === "DVD") {
@@ -85,9 +85,9 @@ addprimaryUpload.addEventListener("change", function() {
   }
 });
 function showTypeFields(){
-var addtype = document.getElementById("addtype").value;
-var addpagesField = document.getElementById("addpagesField");
-var adddurationField = document.getElementById("adddurationField");
+var addtype = document.getElementsByClassName(".addtype").value;
+var addpagesField = document.getElementsByClassName(".addpagesField");
+var adddurationField = document.getElementsByClassName(".adddurationField");
 
 // hide all fields by default
 addpagesField.style.display = "none";
@@ -194,12 +194,12 @@ function validateInput1() {
   const now = new Date();
   const editstateValue = editstate.value;
   let arr = [];
-  // if(editfileUploadValue === '') {
-  //   setError(editfileUpload, 'empty input !');
-  // }else {
-  //   setSuccess(editfileUpload);
-  //   arr.push(true);
-  // }
+  if(editfileUploadValue === '') {
+    setError(editfileUpload, 'empty input !');
+  }else {
+    setSuccess(editfileUpload);
+    arr.push(true);
+  }
   if(edittitleValue === '') {
     setError(edittitle, 'Title cannot be blank');
   } else {
@@ -252,7 +252,7 @@ if (editbuydate.value === '' || new Date(editbuydate.value) >= now) {
     setSuccess(editstate);
     arr.push(true);
   }
-  if(arr.length === 7) {
+  if(arr.length === 9) {
     // all fields are filled
     // submit the form or redirect to another page
     editform.submit(); // submit the form
