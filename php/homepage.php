@@ -15,19 +15,6 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- <nav class="navbar navbar-transparent fixed-top">
-        <div class="d-flex">
-            <div>
-        <img src="../imgs/Wix-Logo-Maker-removebg-preview (2) 2.svg" alt="Bootstrap" width="100" height="100">
-
-        </div>
-        <div class="mt-5">
-        <span class="brown">OasisBooks</span>
-
-        </div></div>
-    <div class="">
-    </div>
-</nav> -->
 <?php
 session_start();
 require 'functions.php';
@@ -35,7 +22,6 @@ require 'functions.php';
 require 'connect.php';
 
 require 'navbar.php';
-
 ?>
 <div class="homeimg">
         <h1 class="brown">"Welcome to our online borrowing books website"</h1>
@@ -47,7 +33,7 @@ require 'navbar.php';
               </div>
         </div>
             </div> 
-            <div class="d-flex gap-3">
+            <div class="d-flex flex-wrap gap-3">
                 <?php 
   include 'Collection.php';
   $cards = Card::getCards();
@@ -57,9 +43,9 @@ require 'navbar.php';
 <div class="wow" style="position: relative;margin:10px ;">
       <img class="cardimg" src="<?php echo $card->getImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
       <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
-      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 7%;">
+      <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 5%;">
         <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
-        <p class="card-text"><?php echo $card->getAuthorname(); ?></p>
+        <p ><?php echo $card->getAuthorname(); ?></p>
         <?php if ($card->getStatus() ==='Available') {
             
         

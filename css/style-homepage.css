@@ -71,3 +71,7 @@ span.brown {
 .modal-backdrop {
   z-index: 0;
 }
+P{
+  margin-top: 0;
+margin-bottom: 0rem;
+}

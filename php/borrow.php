@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $collection_code = $_POST['collection_code'];
     $Reservation_Code = $_POST['Reservation_Code'];
     $status = 'Checked out';
-    $nickname = $_SESSION["nickname"];
+    $nickname =$_POST['nickname'];
 
     // Update the collection state and add a new reservation record in the database
     $collection->updateCollectionState1($collection_code, $status, $nickname,$Reservation_Code);

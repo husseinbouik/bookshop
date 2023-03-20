@@ -59,8 +59,9 @@ foreach ($cards as $card) {
             <div class="modal-body texte-white bgmodal">
               <h3>Can you please confirm if the book has been returned ?</h3>
               <form  action="return.php" method="POST" id="reserveform" enctype="multipart/form-data">
-                <input type="hidden" name="collection_code" value="<?php echo $card->getCollectionCode(); ?>" id="borrow_id">
-                <input type="hidden" name="Reservation_Code" value="<?php echo $card->getReservationCode(); ?>" id="borrow_id">
+                <input type="hidden" name="collection_code" value="<?php echo $card->getCollectionCode(); ?>" id="collection_id">
+                <input type="hidden" name="Reservation_Code" value="<?php echo $card->getReservationCode(); ?>" id="reserve_id">
+                <input type="hidden" name="Borrowing_Code" value="<?php echo $card->getborrowingCode(); ?>" id="borrow_id">
                 <button type="submit" name="borrow">Borrowed</button>
                 <button type="button" class="btn btn-secondary buttons" data-bs-dismiss="modal">Cancel</button>
               </form>

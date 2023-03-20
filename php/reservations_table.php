@@ -58,6 +58,7 @@ foreach ($cards as $card) {
               <form  action="borrow.php" method="POST" id="reserveform" enctype="multipart/form-data">
                 <input type="hidden" name="collection_code" value="<?php echo $card->getCollectionCode(); ?>" id="borrow_id">
                 <input type="hidden" name="Reservation_Code" value="<?php echo $card->getReservationCode(); ?>" id="borrow_id">
+                <input type="hidden" name="nickname" value="<?php echo $card->getNickname(); ?>" id="borrow_id">
                 <button type="submit" name="borrow">Borrowed</button>
                 <button type="button" class="btn btn-secondary buttons" data-bs-dismiss="modal">Cancel</button>
               </form>

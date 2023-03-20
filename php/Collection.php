@@ -18,8 +18,6 @@ class Collection {
         $stmt = $this->db->prepare('INSERT INTO collection (Title, Author_Name, Cover_Image, State, Type_Code, Edition_Date, Buy_Date, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([$title, $authorname, $image, $state, $type_code, $editiondate, $buydate,$status]);
     }
-    
-  
     public function updateCollection($collection_code, $title, $authorname, $type, $pages_or_duration, $editiondate, $buydate, $state, $image) {
         // Retrieve Type_Code from Types table
         $stmt = $this->db->prepare('SELECT Type_Code FROM collection WHERE Collection_Code = ?');
@@ -98,22 +96,23 @@ class Collection {
         throw $e;
     }
 }
-public function updateCollectionState2($collection_code, $status) {
+public function updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code) {
     // Prepare the SQL statements
     $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
-    // $reservationSql = "INSERT INTO Borrowings (Borrowing_Date, Borrowing_Return_Date, Collection_Code, Nickname,Reservation_Code) 
-    //                    VALUES (NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY), :collection_code, :nickname,:Reservation_Code)";
-
     // Bind the parameters for the collection SQL statement
     $collectionStmt = $this->db->prepare($collectionSql);
     $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
     $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
 
-    // Bind the parameters for the reservation SQL statement
-    // $reservationStmt = $this->db->prepare($reservationSql);
-    // $reservationStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
-    // $reservationStmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
-    // $reservationStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
+    $reservationDeleteSql = "DELETE FROM Reservation WHERE Reservation_Code = :Reservation_Code";
+$borrowingDeleteSql = "DELETE FROM Borrowings WHERE Borrowing_Code = :Borrowing_Code";
+
+$reservationDeleteStmt = $this->db->prepare($reservationDeleteSql);
+$reservationDeleteStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
+
+$borrowingDeleteStmt = $this->db->prepare($borrowingDeleteSql);
+$borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_INT);
+
 
     // Execute the statements within a transaction
     $this->db->beginTransaction();
@@ -330,6 +329,7 @@ class Book {
        Collection.Status, 
        Reservation.Reservation_Date,
        Reservation.Reservation_Expiration_Date,
+       Reservation.Nickname,
       Borrowings.Borrowing_Date, 
       Borrowings.Borrowing_Return_Date
       FROM Collection
@@ -474,8 +474,9 @@ class Borrowings {
     private $borrowingDate;
     private $borrowingReturnDate;
     private $reservationCode;
+    private $borrowingCode;
   
-    public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $firstname, $lastname, $email, $reservationcode, $borrowingDate, $borrowingReturnDate, $reservationCode) {
+    public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $firstname, $lastname, $email, $borrowingDate, $borrowingReturnDate, $reservationCode,$borrowingCode) {
         $this->collectionCode = $collectionCode;
         $this->nickname = $nickname;
         $this->title = $title;
@@ -489,6 +490,7 @@ class Borrowings {
         $this->borrowingDate = $borrowingDate;
         $this->borrowingReturnDate = $borrowingReturnDate;
         $this->reservationCode = $reservationCode;
+        $this->borrowingCode = $borrowingCode;
     }
   
     public function getCollectionCode() {
@@ -538,6 +540,9 @@ class Borrowings {
     public function getBorrowingReturnDate() {
         return $this->borrowingReturnDate;
     }
+    public function getborrowingCode() {
+        return $this->borrowingCode;
+    }
   
     public static function getBorrowings() {
         require('connect.php');
@@ -565,10 +570,10 @@ class Borrowings {
                 $row['Firstname'],
                 $row['Lastname'],
                 $row['Email'],
-                $row['Reservation_Code'],
                 $row['Borrowing_Date'],
                 $row['Borrowing_Return_Date'],
-                $row['Reservation_Code']
+                $row['Reservation_Code'],
+                $row['Borrowing_Code']
             );
             $cards[] = $card;
         }

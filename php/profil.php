@@ -137,7 +137,8 @@
             ?>
               <button class="btn btn-warning"><?php echo $card->getStatus(); ?></button>
               <span class="red" style="color: red;">
-                <i class="fa-solid fa-calendar"></i> <?php print($return_countdown); ?>
+                <i class="fa-solid fa-calendar"></i> <?php 
+                print($return_countdown); ?>
               </span>
           <?php
             }
