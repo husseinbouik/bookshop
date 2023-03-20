@@ -102,7 +102,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex gap-3">
+  <div class="d-flex flex-wrap gap-3">
     <?php
 
     include 'Collection.php';
@@ -114,18 +114,15 @@
       <div class="wow" style="position: relative;margin:10px ;">
         <img class="cardimg" src="<?php echo $card->getCoverImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
         <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
-        <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 10%;">
+        <div class="cardcontent " style="position: absolute; top: 62%; left: 0%;z-index: 1;padding: 7%;">
           <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
           <p class="card-text"><?php echo $card->getAuthorName(); ?></p>
           <?php
           if (!empty($card->getStatus())) {
             if ($card->getStatus() == 'Reserved') {
               $expiration_date = new DateTime($card->getReservationExpirationDate());
-              $return_date  = new DateTime($card->getBorrowingReturnDate());
-
               $now = new DateTime();
               $expiration_countdown = $now->diff($expiration_date)->format('%a : %h : %i');
-              $return_countdown = $now->diff($return_date)->format('%a : %h : %i');
           ?>
               <button class="btn btn-secondary">Reserved</button>
               <span class="red" style="color: red;">
@@ -133,7 +130,9 @@
               </span>
             <?php
             } else {
-
+              $now = new DateTime();
+              $return_date  = new DateTime($card->getBorrowingReturnDate());
+              $return_countdown = $now->diff($return_date)->format('%a : %h : %i');
             ?>
               <button class="btn btn-warning"><?php echo $card->getStatus(); ?></button>
               <span class="red" style="color: red;">

@@ -118,7 +118,9 @@ $borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_I
     $this->db->beginTransaction();
     try {
         $collectionStmt->execute();
-        // $reservationStmt->execute();
+        $borrowingDeleteStmt->execute();
+        $reservationDeleteStmt->execute();
+
         $this->db->commit();
     } catch (PDOException $e) {
         $this->db->rollback();
@@ -256,7 +258,6 @@ class Card
 }
 class Book {
   private $collectionCode;
-  private $nickname;
   private $title;
   private $authorName;
   private $coverImage;
@@ -266,9 +267,8 @@ class Book {
   private $borrowingDate;
   private $borrowingReturnDate;
 
-  public function __construct($collectionCode,$nickname, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $borrowingDate, $borrowingReturnDate) {
+  public function __construct($collectionCode, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $borrowingDate, $borrowingReturnDate) {
       $this->collectionCode = $collectionCode;
-      $this->nickname = $nickname;
       $this->title = $title;
       $this->authorName = $authorName;
       $this->coverImage = $coverImage;
@@ -282,10 +282,6 @@ class Book {
   public function getCollectionCode() {
       return $this->collectionCode;
   }
-  public function getNickname() {
-    return $this->nickname;
-}
-
   public function getTitle() {
       return $this->title;
   }
@@ -324,12 +320,12 @@ class Book {
   
       $stmt = $db->prepare("SELECT 
       Collection.Collection_Code,
-      Collection.Title, Collection.Author_Name, 
+      Collection.Title, 
+      Collection.Author_Name, 
       Collection.Cover_Image, 
        Collection.Status, 
        Reservation.Reservation_Date,
        Reservation.Reservation_Expiration_Date,
-       Reservation.Nickname,
       Borrowings.Borrowing_Date, 
       Borrowings.Borrowing_Return_Date
       FROM Collection
@@ -340,7 +336,7 @@ class Book {
       $stmt->bindParam(':nickname', $_SESSION['nickname']);
       $stmt->execute();
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $card = new Book($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['Status'],$row['Reservation_Date'], $row['Reservation_Expiration_Date'], $row['Borrowing_Date'], $row['Borrowing_Return_Date'],$row['Nickname']);
+          $card = new Book($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['Status'],$row['Reservation_Date'], $row['Reservation_Expiration_Date'], $row['Borrowing_Date'], $row['Borrowing_Return_Date']);
           $cards[] = $card;
       }
   
