@@ -8,30 +8,42 @@ const addduration = document.querySelector('.addduration');
 const addeditiondate = document.querySelector('.addeditiondate');
 const addbuydate = document.querySelector('.addbuydate');
 const addstate = document.querySelector('.addstate');
-const editform = document.querySelector('.editform');
-const edittitle = document.querySelector('.edittitle');
-const editauthorname = document.querySelector('.editauthorname');
-const edittype = document.querySelector('.edittype');
-const editpages = document.querySelector('.editpages');
-const editduration = document.querySelector('.editduration');
-const editeditiondate = document.querySelector('.editeditiondate');
-const editbuydate = document.querySelector('.editbuydate');
-const editstate = document.querySelector('.editstate');
-const editfileUpload = document.querySelector(`.editfileUpload`);
 const addprimaryUpload = document.querySelector(`.addfileUpload`);
 const addprimaryPreview1 = document.querySelector(`.addpreviewImage1`);
 const addprimaryIcon1 = document.querySelector(`.addicon1`);
-// Primary image upload
-const primaryUpload = document.querySelector(".editfileUpload");
-const primaryPreview = document.querySelector(".editpreviewImage1");
-const primaryIcon = document.querySelector(".editicon1");
+// const editform = document.querySelector('.editform');
+// const edittitle = document.querySelector('.edittitle');
+// const editauthorname = document.querySelector('.editauthorname');
+// const edittype = document.querySelector('.edittype');
+// const editpages = document.querySelector('.editpages');
+// const editduration = document.querySelector('.editduration');
+// const editeditiondate = document.querySelector('.editeditiondate');
+// const editbuydate = document.querySelector('.editbuydate');
+// const editstate = document.querySelector('.editstate');
+// const editfileUpload = document.querySelector(`.editfileUpload`);
 
-editform.addEventListener("submit", (e) => {
+
+
+
+
+const editforms = document.querySelectorAll('.editform');
+
+editforms.forEach(form => {
+  const edittitle = form.querySelector('.edittitle');
+  const editauthorname = form.querySelector('.editauthorname');
+  const edittype = form.querySelector('.edittype');
+  const editpages = form.querySelector('.editpages');
+  const editduration = form.querySelector('.editduration');
+  const editeditiondate = form.querySelector('.editeditiondate');
+  const editbuydate = form.querySelector('.editbuydate');
+  const editstate = form.querySelector('.editstate');
+  const editfileUpload = form.querySelector('.editfileUpload');
+  form.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInput1();
 }); 
 function validateInput1() {
-  const editfileUploadValue = editfileUpload.value.trim();
+  const editfileUploadValue = editfileUpload.value;
   const edittitleValue = edittitle.value.trim();
   const editauthornameValue = editauthorname.value.trim();
   const edittypeValue = edittype.value.trim();
@@ -101,26 +113,33 @@ if (editbuydate.value === '' || new Date(editbuydate.value) >= now) {
   if(arr.length === 9) {
     // all fields are filled
     // submit the form or redirect to another page
-    editform.submit(); // submit the form
+    form.submit(); // submit the form
   }
 }
-
+// Primary image upload
+const primaryUpload = form.querySelector(".editfileUpload");
+const primaryPreview = form.querySelector(".editpreviewImage1");
+const primaryIcon = form.querySelector(".editicon1");
 primaryUpload.addEventListener("change", function() {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.addEventListener("load", function() {
-            primaryPreview.style.display = "block";
-            primaryPreview.setAttribute("src", this.result);
-            primaryIcon.style.display = "none";
-        });
-        reader.readAsDataURL(file);
-    } else {
-        primaryPreview.style.display = "none";
-        primaryPreview.setAttribute("src", "#");
-        primaryIcon.style.display = "block";
-    }
+  const file = this.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.addEventListener("load", function() {
+          primaryPreview.style.display = "block";
+          primaryPreview.setAttribute("src", this.result);
+          primaryIcon.style.display = "none";
+      });
+      reader.readAsDataURL(file);
+  } else {
+      primaryPreview.style.display = "none";
+      primaryPreview.setAttribute("src", "#");
+      primaryIcon.style.display = "block";
+  }
 });
+})
+
+
+
 // Get the select element
   var select = document.querySelector(".edittype");
 

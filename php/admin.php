@@ -208,10 +208,10 @@ foreach ($currentCards as $card) {
                 <h2>Ajouter l'anonce</h2>
                 <div class=" form-controll secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
                   <img id="editicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
-                  <input type="file" name="images[]" class="editfileUpload" id="editfileUpload" value="<?php echo $card->getImage(); ?>"/>
-                  <input type="hidden" name="collection_code" value="<?php echo $card->getId(); ?>">
-                  <input type="hidden" name="old_image" value="<?php echo $card->getImage(); ?>">
-                  <img class="previewImage editpreviewImage1" id="editpreviewImage1<?php echo $card->getId(); ?>" src="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
+                  <input type="file" name="images[]" class="editfileUpload"  value="<?php echo $card->getImage(); ?>"/>
+                  <input type="hidden"  name="collection_code" value="<?php echo $card->getId(); ?>">
+                  <input type="hidden" name="old_image" class="editfileUpload" value="<?php echo $card->getImage(); ?>">
+                  <img class="previewImage editpreviewImage1" id="editpreviewImage1<?php echo $card->getId(); ?>" src="<?php echo $card->getImage(); ?>"  value="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
                   <i class="fas fa-check-circle"></i>
                   <i class="fas fa-exclamation-circle"></i>
                   <small>Error message</small>
