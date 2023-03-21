@@ -82,7 +82,7 @@ foreach ($currentCards as $card) {
         <p ><?php echo $card->getAuthorname(); ?></p>
         <?php if ($card->getStatus() ==='Available') {
             
-        
+    
         ?>
                         <button class="btn btn-primary" data-bs-toggle='modal' data-bs-backdrop="false" data-bs-target="#reseve<?php echo $card->getId(); ?>" role="button" value=''>Available</button>
                          <!-- Modal Reserve -->

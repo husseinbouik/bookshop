@@ -475,6 +475,11 @@ class Reservations {
               $row['Reservation_Code']
 
           );
+          if ($row['Reservation_Expiration_Date'] < date('Y-m-d H:i:s')) {
+            // Reservation has expired, update the status of the corresponding collection to "Available"
+            $updateStmt = $db->prepare("UPDATE Collection SET Status = 'Available' WHERE Collection_Code = ?");
+            $updateStmt->execute([$row['Collection_Code']]);
+          }
           $cards[] = $card;
       }
 

@@ -14,9 +14,7 @@
 include 'Collection.php';
 $cards = Reservations::getReservation();
 foreach ($cards as $card) {
-  if($card->getStatus()  ==='Reserved' ){
-
- 
+  if($card->getStatus()  ==='Reserved' ){ 
   $initials = strtoupper(substr($card->getFirstname(), 0, 1) . substr($card->getLastname(), 0, 1));
 ?>
           <tr>

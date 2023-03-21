@@ -1,6 +1,7 @@
 
 <?php if (!authenticated()) { ?>
-    <nav class="navbar navbar-transparent fixed-top">
+    <nav class="navbar navbar-transparent fixed-top" style="    background-color: #f5f5dc22;
+ padding: 0%;">
         <div class="d-flex">
             <a href="../php/landing-page.php">
                 <div>
@@ -23,7 +24,6 @@
         require('connect.php');
         $initial = strtoupper(substr($_SESSION['nickname'], 0, 1));
         if (isset($_SESSION["admin"])) {
-            echo $_SESSION["admin"];
             if ($_SESSION["admin"] == '1') {
 
         ?>
@@ -52,8 +52,9 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="profiladmin.php">profile</a></li>
-                                <li><a class="dropdown-item" href="demands.php" name="logout">Reservations/Borrowings</a></li>
+                                <!-- <li><a class="dropdown-item" href="profiladmin.php">profile</a></li> -->
+                                <li><a class="dropdown-item" href="admin.php" name="logout">BookLists</a></li>
+                                <li><a class="dropdown-item" href="demands.php" name="logout">Reservations<br>&Borrowings</a></li>
                                 <li><a class="dropdown-item" href="logout.php" name="logout">logout</a></li>
                             </ul>
                         </div>

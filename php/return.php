@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $collection->updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code,$BorrowingReturnDate,$Nickname);
 
     // Redirect to the collection home page
-    // header("Location: demands.php");
+    header("Location: demands.php");
     exit;
 }
 

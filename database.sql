@@ -52,6 +52,7 @@ INSERT INTO `Types` (`Type_Code`, `Type_Name`, `pages_or_duration`) VALUES
 (13,'DVD','147'),
 (14,'DVD','123'),
 (15,'DVD','118');
+
 INSERT INTO `Collection` (`Collection_Code`, `Title`, `Author_Name`, `Cover_Image`, `State`, `Edition_Date`, `Buy_Date`, `Status`, `Type_Code`) VALUES
 (1,'Red,White & Royal blue ','Casey McQuiston','../images/Group 54.png','Good condition','2019-05-14', '2019-12-01','Available',1),
 (2,'The Cruel Prince',' Holly Black','../images/Group 55.jpg','New','2017-01-02', '20-03-01','Available',2),
