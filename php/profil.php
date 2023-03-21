@@ -30,6 +30,7 @@
 
   if ($stmt->rowCount() > 0) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $nickname = $row["Nickname"];
     $first_name = $row["Firstname"];
     $last_name = $row["Lastname"];
     $phone_number = $row["PhoneNumber"];
@@ -66,7 +67,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="editprofilinfo.php" enctype="multipart/form-data">
+          <form method="POST" action="editprofil.php" enctype="multipart/form-data">
+          <input type="hidden" name="Nickname" value="<?php echo  $row["Nickname"];  ?>" id="nickname">
             <div class="mb-3">
               <label for="firstName" class="form-label">First Name</label>
               <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $row["Firstname"]; ?>">

@@ -62,6 +62,8 @@ foreach ($cards as $card) {
                 <input type="hidden" name="collection_code" value="<?php echo $card->getCollectionCode(); ?>" id="collection_id">
                 <input type="hidden" name="Reservation_Code" value="<?php echo $card->getReservationCode(); ?>" id="reserve_id">
                 <input type="hidden" name="Borrowing_Code" value="<?php echo $card->getborrowingCode(); ?>" id="borrow_id">
+                <input type="hidden" name="Borrowing_ReturnDate" value="<?php echo $card->getBorrowingReturnDate(); ?>" id="borrow_returndate">
+                <input type="hidden" name="Nickname" value="<?php echo $card->getNickname(); ?>" id="nickname">
                 <button type="submit" name="borrow">Borrowed</button>
                 <button type="button" class="btn btn-secondary buttons" data-bs-dismiss="modal">Cancel</button>
               </form>

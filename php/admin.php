@@ -29,13 +29,15 @@ require 'navbar.php';
 ?>
   <div class="homeimg">
     <h1 class="brown">"Welcome to our online borrowing books website"</h1>
-    <div class="searchinput ">
-      <div class="search mx-auto">
-        <i class="fa fa-search"></i>
-        <input type="text" class="form-control" placeholder="Find your next favourite book">
-        <button class="btn btn-secondary">Search</button>
-      </div>
-    </div>
+    <form action="" method="GET">
+        <div class="searchinput ">
+            <div class="search mx-auto">
+                <i class="fa fa-search"></i>
+                <input type="text" id="search search-input" name="q" class="form-control" placeholder="Find your next favourite book">
+                <button type="submit" class="btn btn-secondary" >Search</button>
+              </div>
+        </div>
+        </form>
 
   </div>
   <div class="addcard d-flex justify-content-center align-items-center"><button class="btn btn-warning mt-3 text-white" data-bs-target="#addModalL" data-bs-toggle="modal">add a new card <iconify-icon icon="material-symbols:add-circle" style="color: white;"></iconify-icon></button></div>
@@ -138,11 +140,36 @@ require 'navbar.php';
       </div>
     </div>
   </div>
-  <div class="d-flex flex-wrap gap-3"><?php
-  include 'Collection.php';
-$cards = Card::getCards();
-foreach ($cards as $card) {       
-?>
+  <div class="d-flex flex-wrap gap-3">
+    <?php
+ 
+include 'Collection.php';
+
+// Determine the number of items to display per page
+$itemsPerPage = 4;
+
+// Get the search query from the URL parameter
+$searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+
+// Get the current page number from the URL parameter
+$pageNumber = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+// Get the cards matching the search query
+$cards = Card::searchCards($searchQuery);
+
+// Determine the total number of cards
+$totalCards = count($cards);
+
+// Calculate the offset and limit for the SQL query
+$offset = ($pageNumber - 1) * $itemsPerPage;
+$limit = $itemsPerPage;
+
+// Get only the cards for the current page
+$currentCards = array_slice($cards, $offset, $limit);
+
+// Display the cards for the current page
+foreach ($currentCards as $card) {
+            ?>
     <div class="wow" style="position: relative;margin:10px ;">
       <img class="cardimg" src="<?php echo $card->getImage(); ?>" alt="Background Image" width="250" height="350" style="border-radius: 20px;">
       <img src="../imgs/opacitywaves.png" alt="Overlay Image" width="250" height="350" style="position: absolute; top: 0%; left: 0%; transform: translate(0%, 4%); z-index: 0;">
@@ -277,6 +304,19 @@ foreach ($cards as $card) {
     </div>
     <?php      
         }
+        // Display the pagination links
+$totalPages = ceil($totalCards / $itemsPerPage);
+if ($totalPages > 1) {
+    echo '<ul class="pagination">';
+    for ($i = 1; $i <= $totalPages; $i++) {
+        if ($i == $pageNumber) {
+            echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+        } else {
+            echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '&q=' . $searchQuery . '">' . $i . '</a></li>';
+        }
+    }
+    echo '</ul>';
+} 
 ?>
   </div>
   <script src="../js/addedit.js"></script>

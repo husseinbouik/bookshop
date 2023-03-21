@@ -96,7 +96,7 @@ class Collection {
         throw $e;
     }
 }
-public function updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code) {
+public function updateCollectionState2($collection_code, $status, $Borrowing_Code, $Reservation_Code, $BorrowingReturnDate, $Nickname) {
     // Prepare the SQL statements
     $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
     // Bind the parameters for the collection SQL statement
@@ -104,19 +104,29 @@ public function updateCollectionState2($collection_code, $status,$Borrowing_Code
     $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
     $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
 
+        // Update the penalty count if the borrowing return date is after the current date
+        $now = new DateTime();
+        $returnDate = new DateTime($BorrowingReturnDate);
+        echo $Nickname;
+        if ($returnDate > $now && isset($Nickname)) {
+            $memberSql = "UPDATE Members SET Penalty_Count = COALESCE(Penalty_Count, 0) + 1 WHERE Nickname = :nickname ";
+            $memberStmt = $this->db->prepare($memberSql);
+            $memberStmt->bindParam(':nickname', $Nickname, PDO::PARAM_STR);
+        }
+    
+
     $reservationDeleteSql = "DELETE FROM Reservation WHERE Reservation_Code = :Reservation_Code";
-$borrowingDeleteSql = "DELETE FROM Borrowings WHERE Borrowing_Code = :Borrowing_Code";
+    $borrowingDeleteSql = "DELETE FROM Borrowings WHERE Borrowing_Code = :Borrowing_Code";
 
-$reservationDeleteStmt = $this->db->prepare($reservationDeleteSql);
-$reservationDeleteStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
+    $reservationDeleteStmt = $this->db->prepare($reservationDeleteSql);
+    $reservationDeleteStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
 
-$borrowingDeleteStmt = $this->db->prepare($borrowingDeleteSql);
-$borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_INT);
-
-
+    $borrowingDeleteStmt = $this->db->prepare($borrowingDeleteSql);
+    $borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_INT);
     // Execute the statements within a transaction
     $this->db->beginTransaction();
     try {
+        $memberStmt->execute();
         $collectionStmt->execute();
         $borrowingDeleteStmt->execute();
         $reservationDeleteStmt->execute();
@@ -127,6 +137,7 @@ $borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_I
         throw $e;
     }
 }
+
     public function deleteCollection($collection_code) {
         // Retrieve Type_Code and Cover_Image from Collection table
         $stmt = $this->db->prepare('SELECT Type_Code, Cover_Image FROM collection WHERE Collection_Code = ?');
@@ -239,6 +250,20 @@ class Card
   {
     return $this->pagesOrDuration;
   }
+  public static function searchCards($searchTerm) {
+    $cards = self::getCards();
+    $filteredCards = [];
+
+    foreach ($cards as $card) {
+        // Search for match in title or author name
+        if (stripos($card->getTitle(), $searchTerm) !== false ||
+            stripos($card->getAuthorname(), $searchTerm) !== false) {
+            $filteredCards[] = $card;
+        }
+    }
+
+    return $filteredCards;
+}
 
   public static function getCards()
   {

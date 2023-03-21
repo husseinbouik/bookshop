@@ -12,11 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $collection_code = $_POST['collection_code'];
     $Reservation_Code = $_POST['Reservation_Code'];
     $Borrowing_Code = $_POST['Borrowing_Code'];
+    $BorrowingReturnDate = $_POST['Borrowing_ReturnDate'];
     $status = 'Available';
+    $Nickname = $_POST['Nickname'];
     // $nickname = $_SESSION["nickname"];
 
     // Update the collection state and add a new reservation record in the database
-    $collection->updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code);
+    $collection->updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code,$BorrowingReturnDate,$Nickname);
 
     // Redirect to the collection home page
     // header("Location: demands.php");
