@@ -74,7 +74,7 @@ require 'navbar.php';
               </div>
               <div class="form-controll">
                 <label for="exampleFormControlInput1" class="form-label">Type</label>
-                <select class="form-select addtype" name="type" id="addtype" onchange="showTypeFields()">
+                <select class="form-select addtype" name="type" id="addtype" onchange="showTypeField()">
                   <option selected disabled>Type</option>
                   <option value="Book">Book</option>
                   <option value="Novel">Novel</option>
@@ -208,7 +208,7 @@ foreach ($currentCards as $card) {
                 <h2>Ajouter l'anonce</h2>
                 <div class=" form-controll secondary-image-wrapper file-input d-md-flex flex-column justify-content-center align-items-center mb-3 w-25 h-25 d-flex">
                   <img id="editicon1" src="../imgs/cloud-upload.svg" alt="Upload Icon" />
-                  <input type="file" name="images[]" class="editfileUpload"  value="<?php echo $card->getImage(); ?>"/>
+                  <input type="file"  name="image" class="editfileUpload"  value="<?php echo $card->getImage(); ?>"/>
                   <input type="hidden"  name="collection_code" value="<?php echo $card->getId(); ?>">
                   <input type="hidden" name="old_image" class="editfileUpload" value="<?php echo $card->getImage(); ?>">
                   <img class="previewImage editpreviewImage1" id="editpreviewImage1<?php echo $card->getId(); ?>" src="<?php echo $card->getImage(); ?>"  value="<?php echo $card->getImage(); ?>" alt="Image Preview" width="100" style="display: block;" />
@@ -320,6 +320,22 @@ if ($totalPages > 1) {
 ?>
   </div>
   <script src="../js/addedit.js"></script>
+  <script>function showTypeField(){
+  var addtype = document.getElementById("addtype").value;
+  var addpagesField = document.getElementById("addpagesField");
+  var adddurationField = document.getElementById("adddurationField");
+  
+  // hide all fields by default
+  addpagesField.style.display = "none";
+  adddurationField.style.display = "none";
+  
+  // show fields based on selected addtype
+  if (addtype == "Book" || addtype == "Novel" || addtype == "Research paper/thesis" || addtype == "Magazine") {
+    addpagesField.style.display = "block";
+  } else if (addtype == "DVD" ) {
+    adddurationField.style.display = "block";
+  }
+  }</script>
 
 </body>
 

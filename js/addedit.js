@@ -11,22 +11,13 @@ const addstate = document.querySelector('.addstate');
 const addprimaryUpload = document.querySelector(`.addfileUpload`);
 const addprimaryPreview1 = document.querySelector(`.addpreviewImage1`);
 const addprimaryIcon1 = document.querySelector(`.addicon1`);
-// const editform = document.querySelector('.editform');
-// const edittitle = document.querySelector('.edittitle');
-// const editauthorname = document.querySelector('.editauthorname');
-// const edittype = document.querySelector('.edittype');
-// const editpages = document.querySelector('.editpages');
-// const editduration = document.querySelector('.editduration');
-// const editeditiondate = document.querySelector('.editeditiondate');
-// const editbuydate = document.querySelector('.editbuydate');
-// const editstate = document.querySelector('.editstate');
-// const editfileUpload = document.querySelector(`.editfileUpload`);
 
 
 
 
 
 const editforms = document.querySelectorAll('.editform');
+
 
 editforms.forEach(form => {
   const edittitle = form.querySelector('.edittitle');
@@ -37,7 +28,16 @@ editforms.forEach(form => {
   const editeditiondate = form.querySelector('.editeditiondate');
   const editbuydate = form.querySelector('.editbuydate');
   const editstate = form.querySelector('.editstate');
-  const editfileUpload = form.querySelector('.editfileUpload');
+  const editfileUpload = form.querySelector(".editfileUpload");
+  // Primary image upload
+const primaryUpload = form.querySelector(".editfileUpload");
+const primaryPreview = form.querySelector(".editpreviewImage1");
+const primaryIcon = form.querySelector(".editicon1");
+//  Get the select element
+var select = form.querySelector(".edittype");
+// Get the input fields
+var pagesField = form.querySelector(".editpagesField");
+var durationField = form.querySelector(".editdurationField");
   form.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInput1();
@@ -52,12 +52,12 @@ function validateInput1() {
   const now = new Date();
   const editstateValue = editstate.value;
   let arr = [];
-  if(editfileUploadValue === '') {
-    setError(editfileUpload, 'empty input !');
-  }else {
-    setSuccess(editfileUpload);
-    arr.push(true);
-  }
+  // if(editfileUploadValue == '') {
+  //   setError(editfileUpload, 'empty input !');
+  // }else {
+  //   setSuccess(editfileUpload);
+  //   arr.push(true);
+  // }
   if(edittitleValue === '') {
     setError(edittitle, 'Title cannot be blank');
   } else {
@@ -110,16 +110,13 @@ if (editbuydate.value === '' || new Date(editbuydate.value) >= now) {
     setSuccess(editstate);
     arr.push(true);
   }
-  if(arr.length === 9) {
+  if(arr.length === 7) {
     // all fields are filled
     // submit the form or redirect to another page
     form.submit(); // submit the form
   }
 }
-// Primary image upload
-const primaryUpload = form.querySelector(".editfileUpload");
-const primaryPreview = form.querySelector(".editpreviewImage1");
-const primaryIcon = form.querySelector(".editicon1");
+
 primaryUpload.addEventListener("change", function() {
   const file = this.files[0];
   if (file) {
@@ -136,17 +133,6 @@ primaryUpload.addEventListener("change", function() {
       primaryIcon.style.display = "block";
   }
 });
-})
-
-
-
-// Get the select element
-  var select = document.querySelector(".edittype");
-
-  // Get the input fields
-  var pagesField = document.querySelector(".editpagesField");
-  var durationField = document.querySelector(".editdurationField");
-
   // Show the appropriate input field based on the selected option
   if (select.value === "DVD") {
     pagesField.style.display = "none";
@@ -166,6 +152,11 @@ primaryUpload.addEventListener("change", function() {
       durationField.style.display = "none";
     }
   });
+})
+
+
+
+/
 addprimaryUpload.addEventListener("change", function() {
   const file = this.files[0];
   if (file) {
@@ -182,22 +173,7 @@ addprimaryUpload.addEventListener("change", function() {
       addprimaryIcon1.style.display = "block";
   }
 });
-function showTypeFields(){
-var addtype = document.querySelector(".addtype").value;
-var addpagesField = document.querySelector(".addpagesField");
-var adddurationField = document.querySelector(".adddurationField");
 
-// hide all fields by default
-addpagesField.style.display = "none";
-adddurationField.style.display = "none";
-
-// show fields based on selected addtype
-if (addtype == "Book" || addtype == "Novel" || addtype == "Research paper/thesis" || addtype == "Magazine") {
-  addpagesField.style.display = "block";
-} else if (addtype == "DVD" ) {
-  adddurationField.style.display = "block";
-}
-}
 
 addform.addEventListener("submit", (e) => {
 e.preventDefault();
