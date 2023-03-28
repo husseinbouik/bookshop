@@ -137,7 +137,6 @@ public function updateCollectionState2($collection_code, $status, $Borrowing_Cod
         throw $e;
     }
 }
-
     public function deleteCollection($collection_code) {
         // Retrieve Type_Code and Cover_Image from Collection table
         $stmt = $this->db->prepare('SELECT Type_Code, Cover_Image FROM collection WHERE Collection_Code = ?');
