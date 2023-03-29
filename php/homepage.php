@@ -49,7 +49,7 @@ require 'navbar.php';
 include 'Collection.php';
 
 // Determine the number of items to display per page
-$itemsPerPage = 4;
+$itemsPerPage = 8;
 
 // Get the search query from the URL parameter
 $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
