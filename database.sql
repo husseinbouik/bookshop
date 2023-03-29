@@ -31,6 +31,7 @@ CREATE TABLE `borrowings` (
   `Borrowing_Code` int(11) NOT NULL,
   `Borrowing_Date` datetime DEFAULT NULL,
   `Borrowing_Return_Date` datetime DEFAULT NULL,
+  `Return_Date` datetime DEFAULT NULL,
   `Collection_Code` int(11) NOT NULL,
   `Nickname` varchar(150) NOT NULL,
   `Reservation_Code` int(11) NOT NULL

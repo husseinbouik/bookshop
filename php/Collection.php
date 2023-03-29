@@ -108,10 +108,22 @@ public function updateCollectionState2($collection_code, $status, $Borrowing_Cod
         $now = new DateTime();
         $returnDate = new DateTime($BorrowingReturnDate);
         echo $Nickname;
-        if ($returnDate > $now && isset($Nickname)) {
-            $memberSql = "UPDATE Members SET Penalty_Count = COALESCE(Penalty_Count, 0) + 1 WHERE Nickname = :nickname ";
+
+
+
+
+
+        if (  $now > $returnDate && isset($Nickname)) {
+            $PenaltySql = "SELECT Penalty_Count FROM  Members WHERE Nickname = :nickname ";
+            $penaltyStmt = $this->db->prepare($PenaltySql);
+            $penaltyStmt->bindParam(':nickname', $Nickname, PDO::PARAM_STR);
+            $penaltyStmt->execute();
+            $row = $penaltyStmt->fetch(PDO::FETCH_ASSOC);
+            $Penalty_Count = $row['Penalty_Count'];
+            $memberSql = "UPDATE Members SET Penalty_Count = COALESCE($Penalty_Count, 0) + 1 WHERE Nickname = :nickname ";
             $memberStmt = $this->db->prepare($memberSql);
             $memberStmt->bindParam(':nickname', $Nickname, PDO::PARAM_STR);
+        $memberStmt->execute();
         }
     
 
@@ -126,7 +138,6 @@ public function updateCollectionState2($collection_code, $status, $Borrowing_Cod
     // Execute the statements within a transaction
     $this->db->beginTransaction();
     try {
-        $memberStmt->execute();
         $collectionStmt->execute();
         $borrowingDeleteStmt->execute();
         $reservationDeleteStmt->execute();
