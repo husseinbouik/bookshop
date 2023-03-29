@@ -460,14 +460,16 @@ class Reservations {
       require('connect.php');
       $cards = array();
       $stmt = $db->prepare("SELECT 
-          Collection.*, 
-          Reservation.*,
-          Members.*
-          FROM Collection
-          INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
-          INNER JOIN Members ON Reservation.Nickname = Members.Nickname;
-      ");
-
+      Collection.*, 
+      Reservation.*,
+      borrowings*,
+      Members.*
+      FROM Collection
+      INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
+      INNER JOIN Members ON Reservation.Nickname = Members.Nickname
+      INNER JOIN borrowings ON Members.Nickname = borrowings.Nickname
+      WHERE borrowings.Borrowing_Date IS NULL;
+  ");
       $stmt->execute();
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $card = new Reservations(
