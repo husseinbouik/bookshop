@@ -389,12 +389,13 @@ class Reservations {
   private $status;
   private $reservationDate;
   private $reservationExpirationDate;
+  private $ReturnDate;
   private $firstname;
   private $lastname;
   private $email;
   private $reservationcode;
 
-  public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $firstname, $lastname, $email,$reservationcode) {
+  public function __construct($collectionCode, $nickname, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $ReturnDate, $firstname, $lastname, $email,$reservationcode) {
       $this->collectionCode = $collectionCode;
       $this->nickname = $nickname;
       $this->title = $title;
@@ -403,6 +404,7 @@ class Reservations {
       $this->status = $status;
       $this->reservationDate = $reservationDate;
       $this->reservationExpirationDate = $reservationExpirationDate;
+      $this->ReturnDate = $ReturnDate ;
       $this->firstname = $firstname;
       $this->lastname = $lastname;
       $this->email = $email;
@@ -440,6 +442,9 @@ class Reservations {
   public function getReservationExpirationDate() {
       return $this->reservationExpirationDate;
   }
+  public function getReturnDate() {
+    return $this->ReturnDate;
+}
 
   public function getFirstname() {
       return $this->firstname;
@@ -459,17 +464,13 @@ class Reservations {
   public static function getReservation() {
       require('connect.php');
       $cards = array();
-      $stmt = $db->prepare("SELECT 
-      Collection.*, 
-      Reservation.*,
-      borrowings*,
-      Members.*
-      FROM Collection
-      INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
-      INNER JOIN Members ON Reservation.Nickname = Members.Nickname
-      INNER JOIN borrowings ON Members.Nickname = borrowings.Nickname
-      WHERE borrowings.Borrowing_Date IS NULL;
-  ");
+      $stmt = $db->prepare("SELECT r.Reservation_Code, r.Reservation_Date, r.Reservation_Expiration_Date, c.Collection_Code, c.Title, c.Author_Name, c.Cover_Image, c.State, c.Edition_Date, c.Buy_Date, c.Status, c.Type_Code, m.Nickname, m.Firstname, m.Lastname, m.Address, m.Email, m.PhoneNumber, m.CIN, m.Occupation, m.Penalty_Count, m.Birth_Date, m.Creation_Date,b.*
+      FROM reservation r
+      INNER JOIN collection c ON r.Collection_Code = c.Collection_Code
+      LEFT JOIN borrowings b ON r.Reservation_Code = b.Reservation_Code
+      INNER JOIN members m ON r.Nickname = m.Nickname
+      WHERE b.Borrowing_Date IS NULL;
+      ");
       $stmt->execute();
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $card = new Reservations(
@@ -481,6 +482,7 @@ class Reservations {
               $row['Status'],
               $row['Reservation_Date'], 
               $row['Reservation_Expiration_Date'],
+              $row['Return_Date'],
               $row['Firstname'],
               $row['Lastname'],
               $row['Email'],
