@@ -96,7 +96,7 @@ class Collection {
         throw $e;
     }
 }
-public function updateCollectionState2($collection_code, $status, $Borrowing_Code, $Reservation_Code, $BorrowingReturnDate, $Nickname) {
+public function updateCollectionState2($collection_code, $status, $Borrowing_Code, $BorrowingReturnDate, $Nickname) {
     // Prepare the SQL statements
     $collectionSql = "UPDATE collection SET Status = :status WHERE collection_code = :collection_code";
     // Bind the parameters for the collection SQL statement
@@ -288,8 +288,9 @@ class Book {
   private $reservationExpirationDate;
   private $borrowingDate;
   private $borrowingReturnDate;
+  private $returnDate;
 
-  public function __construct($collectionCode, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $borrowingDate, $borrowingReturnDate) {
+  public function __construct($collectionCode, $title, $authorName, $coverImage, $status, $reservationDate, $reservationExpirationDate, $borrowingDate, $borrowingReturnDate,$returnDate) {
       $this->collectionCode = $collectionCode;
       $this->title = $title;
       $this->authorName = $authorName;
@@ -299,6 +300,8 @@ class Book {
       $this->reservationExpirationDate = $reservationExpirationDate;
       $this->borrowingDate = $borrowingDate;
       $this->borrowingReturnDate = $borrowingReturnDate;
+      $this->returnDate = $returnDate;
+
   }
 
   public function getCollectionCode() {
@@ -335,6 +338,9 @@ class Book {
   public function getBorrowingReturnDate() {
       return $this->borrowingReturnDate;
   }
+  public function getreturnDate() {
+    return $this->returnDate;
+}
   public static function getProfilcards()
   {
       require('connect.php');
@@ -349,7 +355,8 @@ class Book {
        Reservation.Reservation_Date,
        Reservation.Reservation_Expiration_Date,
       Borrowings.Borrowing_Date, 
-      Borrowings.Borrowing_Return_Date
+      Borrowings.Borrowing_Return_Date,
+      Borrowings.Return_Date
       FROM Collection
       INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
       LEFT JOIN Borrowings ON Reservation.Reservation_Code = Borrowings.Reservation_Code
@@ -358,7 +365,7 @@ class Book {
       $stmt->bindParam(':nickname', $_SESSION['nickname']);
       $stmt->execute();
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $card = new Book($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['Status'],$row['Reservation_Date'], $row['Reservation_Expiration_Date'], $row['Borrowing_Date'], $row['Borrowing_Return_Date']);
+          $card = new Book($row['Collection_Code'], $row['Title'], $row['Author_Name'], $row['Cover_Image'], $row['Status'],$row['Reservation_Date'], $row['Reservation_Expiration_Date'], $row['Borrowing_Date'], $row['Borrowing_Return_Date'], $row['Return_Date']);
           $cards[] = $card;
       }
   

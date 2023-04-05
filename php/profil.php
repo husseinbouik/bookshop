@@ -120,7 +120,20 @@
           <h5 class="card-title"><?php echo $card->getTitle(); ?></h5>
           <p class="card-text"><?php echo $card->getAuthorName(); ?></p>
           <?php
-          if (!empty($card->getStatus())) {
+          if (!empty($card->getreturnDate())) {
+            ?>
+            <button class="btn btn-primary">Returned</button>
+            <span class="red" style="color: brown;">
+              <i class="fa-sharp fa-solid fa-clock"></i> <?php echo $card->getreturnDate(); ?>
+            </span>
+            </div>
+      </div>
+            <?php
+   
+        
+
+            
+          }elseif(!empty($card->getStatus())){
             if ($card->getStatus() == 'Reserved') {
               $expiration_date = new DateTime($card->getReservationExpirationDate());
               $now = new DateTime();
@@ -130,8 +143,10 @@
               <span class="red" style="color: red;">
                 <i class="fa-sharp fa-solid fa-clock"></i> <?php print($expiration_countdown); ?>
               </span>
+              </div>
+      </div>
             <?php
-            } else {
+            } elseif($card->getStatus() == 'Checked out') {
               $now = new DateTime();
               $return_date  = new DateTime($card->getBorrowingReturnDate());
               $return_countdown = $now->diff($return_date)->format('%a : %h : %i');
@@ -141,14 +156,17 @@
                 <i class="fa-solid fa-calendar"></i> <?php 
                 print($return_countdown); ?>
               </span>
-          <?php
-            }
-          }
-          ?>
-        </div>
+              </div>
       </div>
+                         <?php
+
+            }
+            ?>
+  
+
     <?php
     }
+  }
     ?>
   </div>
 </body>

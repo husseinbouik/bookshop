@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $nickname = $_SESSION["nickname"];
 
     // Update the collection state and add a new reservation record in the database
-    $collection->updateCollectionState2($collection_code, $status,$Borrowing_Code,$Reservation_Code,$BorrowingReturnDate,$Nickname);
+    $collection->updateCollectionState2($collection_code, $status,$Borrowing_Code,$BorrowingReturnDate,$Nickname);
 
     // Redirect to the collection home page
     header("Location: demands.php");
