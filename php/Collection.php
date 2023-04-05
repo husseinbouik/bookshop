@@ -103,16 +103,13 @@ public function updateCollectionState2($collection_code, $status, $Borrowing_Cod
     $collectionStmt = $this->db->prepare($collectionSql);
     $collectionStmt->bindParam(':status', $status, PDO::PARAM_STR);
     $collectionStmt->bindParam(':collection_code', $collection_code, PDO::PARAM_INT);
+    $borrowingUpdateSql = "UPDATE Borrowings SET Return_Date = NOW() WHERE Borrowing_Code = :Borrowing_Code";
+$borrowingUpdateStmt = $this->db->prepare($borrowingUpdateSql);
+$borrowingUpdateStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_INT);
 
         // Update the penalty count if the borrowing return date is after the current date
         $now = new DateTime();
         $returnDate = new DateTime($BorrowingReturnDate);
-        echo $Nickname;
-
-
-
-
-
         if (  $now > $returnDate && isset($Nickname)) {
             $PenaltySql = "SELECT Penalty_Count FROM  Members WHERE Nickname = :nickname ";
             $penaltyStmt = $this->db->prepare($PenaltySql);
@@ -125,22 +122,12 @@ public function updateCollectionState2($collection_code, $status, $Borrowing_Cod
             $memberStmt->bindParam(':nickname', $Nickname, PDO::PARAM_STR);
         $memberStmt->execute();
         }
-    
 
-    $reservationDeleteSql = "DELETE FROM Reservation WHERE Reservation_Code = :Reservation_Code";
-    $borrowingDeleteSql = "DELETE FROM Borrowings WHERE Borrowing_Code = :Borrowing_Code";
-
-    $reservationDeleteStmt = $this->db->prepare($reservationDeleteSql);
-    $reservationDeleteStmt->bindParam(':Reservation_Code', $Reservation_Code, PDO::PARAM_INT);
-
-    $borrowingDeleteStmt = $this->db->prepare($borrowingDeleteSql);
-    $borrowingDeleteStmt->bindParam(':Borrowing_Code', $Borrowing_Code, PDO::PARAM_INT);
     // Execute the statements within a transaction
     $this->db->beginTransaction();
     try {
         $collectionStmt->execute();
-        $borrowingDeleteStmt->execute();
-        $reservationDeleteStmt->execute();
+        $borrowingUpdateStmt->execute();
 
         $this->db->commit();
     } catch (PDOException $e) {
@@ -464,7 +451,7 @@ class Reservations {
   public static function getReservation() {
       require('connect.php');
       $cards = array();
-      $stmt = $db->prepare("SELECT r.Reservation_Code, r.Reservation_Date, r.Reservation_Expiration_Date, c.Collection_Code, c.Title, c.Author_Name, c.Cover_Image, c.State, c.Edition_Date, c.Buy_Date, c.Status, c.Type_Code, m.Nickname, m.Firstname, m.Lastname, m.Address, m.Email, m.PhoneNumber, m.CIN, m.Occupation, m.Penalty_Count, m.Birth_Date, m.Creation_Date,b.*
+      $stmt = $db->prepare("SELECT r.*, c.*, m.*,b.Borrowing_Date,b.Return_Date
       FROM reservation r
       INNER JOIN collection c ON r.Collection_Code = c.Collection_Code
       LEFT JOIN borrowings b ON r.Reservation_Code = b.Reservation_Code
@@ -588,15 +575,18 @@ class Borrowings {
         require('connect.php');
         $cards = array();
         $stmt = $db->prepare("SELECT 
-            Collection.*, 
-            Reservation.*,
-            Members.*,
-            Borrowings.*
-            FROM Collection
-            INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
-            INNER JOIN Members ON Reservation.Nickname = Members.Nickname
-            INNER JOIN Borrowings ON Borrowings.Reservation_Code = Reservation.Reservation_Code;
-        ");
+        Collection.*, 
+        Reservation.*,
+        Members.*,
+        Borrowings.*
+    FROM 
+        Collection
+        INNER JOIN Reservation ON Collection.Collection_Code = Reservation.Collection_Code
+        INNER JOIN Members ON Reservation.Nickname = Members.Nickname
+        INNER JOIN Borrowings ON Borrowings.Reservation_Code = Reservation.Reservation_Code
+    WHERE
+        Borrowings.Return_Date IS NULL;
+    ");
   
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
