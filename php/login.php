@@ -14,15 +14,23 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
 
     // check if the member exists and the password is correct
     if ($member && password_verify($_POST['password'], $member['Password'])) {
+
+        
+        if ($member['Admin'] == 1) {
+        session_name('admin');
         // the password is correct, so set the session variables and redirect to the appropriate interface
         session_start();
         $_SESSION['nickname'] = $member['Nickname'];
         $_SESSION['firstname'] = $member['Firstname'];
         $_SESSION['admin'] = $member['Admin'];
-        
-        if ($member['Admin'] == 1) {
             header("Location:admin.php");
         } else {
+        session_name('user');
+        // the password is correct, so set the session variables and redirect to the appropriate interface
+        session_start();
+        $_SESSION['nickname'] = $member['Nickname'];
+        $_SESSION['firstname'] = $member['Firstname'];
+        $_SESSION['admin'] = $member['Admin'];
             header("Location:homepage.php");
         }
         
@@ -37,4 +45,3 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
 }
 // Redirect to the collection home page
 // header("Location:check_nickname.php");
-?>
