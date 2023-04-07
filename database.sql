@@ -103,8 +103,8 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`Nickname`, `Firstname`, `Lastname`, `Password`, `Admin`, `Address`, `Email`, `PhoneNumber`, `CIN`, `Occupation`, `Penalty_Count`, `Birth_Date`, `Creation_Date`) VALUES
-('Admin', 'Sarah', 'Ingram', '$2y$10$CWwPpReTTbqmR7I2jDU11uNjJ7Dd.78qHVJkzXYKRv6fjFtHFFG8.', 1, 'Nisi quisquam qui mo', 'gajalyh@mailinator.com', '0632718980', 'Et dolorem ut quisqu', 'Etudiant', NULL, '1986-02-15', '2023-03-22'),
-('husseinbk', 'hussein', 'bouik', '$2y$10$szgSPprz6krh7H8wVzVSWObHD4AXehZHPhwh0k0pnJUVRzW.K7p8m', 0, 'Totam quis modi elit', 'jefosew@mailinator.com', '0632718980', 'Aut consequatur Acc', 'Etudiant', NULL, '2013-07-11', '2023-03-22');
+('Admin', 'Sarah', 'Ingram', '$2y$10$CWwPpReTTbqmR7I2jDU11uNjJ7Dd.78qHVJkzXYKRv6fjFtHFFG8.', 1, 'Nisi quisquam qui mo', 'gajalyh@mailinator.com', '0632718980', 'Et dolorem ut quisqu', 'Etudiant', 0, '1986-02-15', '2023-03-22'),
+('husseinbk', 'hussein', 'bouik', '$2y$10$szgSPprz6krh7H8wVzVSWObHD4AXehZHPhwh0k0pnJUVRzW.K7p8m', 0, 'Totam quis modi elit', 'jefosew@mailinator.com', '0632718980', 'Aut consequatur Acc', 'Etudiant', 0, '2013-07-11', '2023-03-22');
 
 -- --------------------------------------------------------
 

@@ -14,13 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nickname = $_SESSION["nickname"];
 
      // Get the number of reservations and borrowings for the given nickname
-     $reservations_sql = "SELECT COUNT(*) FROM Reservation WHERE Nickname = :nickname";
+     $reservations_sql = "SELECT COUNT(*) 
+     FROM reservation r 
+     INNER JOIN collection c ON r.Collection_Code = c.Collection_Code 
+     LEFT JOIN borrowings b ON r.Reservation_Code = b.Reservation_Code 
+     INNER JOIN members m ON r.Nickname = m.Nickname 
+     WHERE b.Borrowing_Date IS NULL 
+     AND m.Nickname = :nickname";
      $reservations_stmt = $db->prepare($reservations_sql);
      $reservations_stmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
      $reservations_stmt->execute();
      $num_reservations = $reservations_stmt->fetchColumn();
  
-     $borrowings_sql = "SELECT COUNT(*) FROM Borrowings WHERE Nickname = :nickname";
+     $borrowings_sql = "SELECT COUNT(*) 
+     FROM Borrowings 
+     INNER JOIN collection c ON Borrowings.Collection_Code = c.Collection_Code 
+     INNER JOIN members m ON Borrowings.Nickname = m.Nickname 
+     WHERE Borrowings.Return_Date IS NULL 
+     AND m.Nickname = :nickname";
      $borrowings_stmt = $db->prepare($borrowings_sql);
      $borrowings_stmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
      $borrowings_stmt->execute();
